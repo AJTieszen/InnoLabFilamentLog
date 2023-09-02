@@ -33,7 +33,7 @@ public class Main {
 	
 	public static JTable projectTable = new JTable(new ProjectTableModel());
 	public static JTable budgetTable = new JTable(new BudgetTableModel());
-	private static boolean showNetID = true;
+	public static boolean showNetID = true;
 	
 	public static final JLabel statMessage = new JLabel("OK");
 	
@@ -52,8 +52,8 @@ public class Main {
 			Settings.launchEditor();
 		}
 		
-		Database.setupDataBase();
-		Main.refreshDatabase();
+		Database.setup();
+		Database.refresh();
 	}
 	
 	public static void createLayout() {
@@ -162,19 +162,6 @@ public class Main {
 			showNetID = true;
 		}
 	}
-	public static void refreshDatabase() {
-		statMessage.setText("Refreshing Database");
-		projectTable.setModel(new ProjectTableModel());
-		budgetTable.setModel(new BudgetTableModel());
-		Database.readProjects();
-		Database.readBudgets();
-		
-		if (!showNetID) {
-			showHideNetID();
-			showHideNetID();
-		}
-		statMessage.setText("OK");
-	}
 	
 	static class ButtonListener implements ActionListener {		
 		public void actionPerformed(ActionEvent e) {
@@ -182,7 +169,7 @@ public class Main {
 				Settings.launchEditor();
 			}
 			if (e.getActionCommand() == "Refresh database") {
-				Main.refreshDatabase();
+				Database.refresh();
 			}
 			if (e.getActionCommand() == "Show / Hide NetID") {
 				Main.showHideNetID();

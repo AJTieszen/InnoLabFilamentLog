@@ -10,7 +10,7 @@ import net.ucanaccess.jdbc.UcanaccessSQLException;
 public class Database {
 	private static Connection db_connection = null;
 	
-	public static void setupDataBase() {
+	public static void setup() {
 		try {
 //			Create database connection
 	    	Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -131,8 +131,7 @@ public class Database {
 	    		Main.budgetTable.setValueAt(remaining, row, 4);
 	    	}
 	    	else {
-//	    		Update existing user (supplied usage, brought, and remaining values are deltas)
-	    		sql = "select * from users where id = " + netid;
+	    		JOptionPane.showMessageDialog(null, "User " + name + " already exists.");	    		
 	    	}
 		} catch(Exception e) {
 			
@@ -143,6 +142,45 @@ public class Database {
 				e.printStackTrace();
 			}				
 		}
+	}
+	
+	public static boolean checkUserExists(String netid) {
+		boolean userExists = false;
+		try {
+//    		Create database connection
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+	    	String connPath = "jdbc:ucanaccess://" + Settings.getFilePath() + ";singleconnection=true";
+	    	db_connection = DriverManager.getConnection(connPath);
+	    	Statement stmt = db_connection.createStatement();
+	    	
+//	    	check if user is already in database
+	    	String sql = "select * from Budgets where id = '" + netid + "'";
+	    	ResultSet result = stmt.executeQuery(sql);
+	    	userExists = result.next();
+		} catch(Exception e) {
+			
+		} finally {
+	    	try {
+				if (db_connection != null) db_connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}				
+		}
+    	return userExists;
+	}
+	
+	public static void refresh() {
+		Main.statMessage.setText("Refreshing Database");
+		Main.projectTable.setModel(new ProjectTableModel());
+		Main.budgetTable.setModel(new BudgetTableModel());
+		Database.readProjects();
+		Database.readBudgets();
+		
+		if (!Main.showNetID) {
+			Main.createLayout();
+			Main.showHideNetID();
+		}
+		Main.statMessage.setText("OK");
 	}
 	
 	public static void readProjects() {
