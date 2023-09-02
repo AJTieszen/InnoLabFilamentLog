@@ -104,7 +104,12 @@ public class Database {
 			}			
 		}
 	}
-	public static void logUser(String netid, String name, int usage, int brought, int remaining) {
+	public static void logUser(String netid, String name, int limit) {
+//		Calculate fields
+		int usage = 0;
+		int brought = 0;
+		int remaining = limit;
+		
 		try {
 //    		Create database connection
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -134,7 +139,48 @@ public class Database {
 	    		JOptionPane.showMessageDialog(null, "User " + name + " already exists.");	    		
 	    	}
 		} catch(Exception e) {
-			
+			e.printStackTrace();
+		} finally {
+	    	try {
+				if (db_connection != null) db_connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}				
+		}
+	}
+	public static void updateUser(String netid, int deltaUsage, int deltaBrought) {		
+		try {
+//    		Create database connection
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+	    	String connPath = "jdbc:ucanaccess://" + Settings.getFilePath() + ";singleconnection=true";
+	    	db_connection = DriverManager.getConnection(connPath);
+	    	Statement stmt = db_connection.createStatement();
+	    	
+//	    	check if ticket is already in database
+	    	String sql = "select * from Budgets where id = '" + netid + "'";
+	    	ResultSet result = stmt.executeQuery(sql);
+	    	boolean userExists = result.next();
+	    	
+	    	if(userExists) {
+//	    		Get current values
+	    		int usage = (int) result.getObject("usage");
+	    		int brought = (int) result.getObject("brought");
+	    		int remaining = (int) result.getObject("remaining");
+	    		
+//	    		Calculate new values
+	    		usage += deltaUsage;
+	    		brought += deltaBrought;
+	    		remaining += deltaBrought - deltaUsage;
+	    		
+	    		sql = "update Budgets set usage = " + usage + ", brought = " + brought + ", remaining = " + remaining + " where id = '" + netid + "'";
+	    		stmt.executeUpdate(sql);
+	    		refresh();
+	    	}
+	    	else {
+	    		JOptionPane.showMessageDialog(null, "User " + netid + " not found.");	    		
+	    	}
+		} catch(Exception e) {
+			e.printStackTrace();
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
@@ -158,7 +204,7 @@ public class Database {
 	    	ResultSet result = stmt.executeQuery(sql);
 	    	userExists = result.next();
 		} catch(Exception e) {
-			
+			e.printStackTrace();
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
@@ -168,7 +214,6 @@ public class Database {
 		}
     	return userExists;
 	}
-	
 	public static void refresh() {
 		Main.statMessage.setText("Refreshing Database");
 		Main.projectTable.setModel(new ProjectTableModel());

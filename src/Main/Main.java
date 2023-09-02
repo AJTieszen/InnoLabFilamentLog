@@ -154,25 +154,29 @@ public class Main {
 		}
 		else {
 			projectTable.getColumnModel().getColumn(1).setMaxWidth(Integer.MAX_VALUE);
-			projectTable.getColumnModel().getColumn(1).setPreferredWidth(projectTable.getWidth() / projectTable.getColumnCount());
+			projectTable.getColumnModel().getColumn(1).setPreferredWidth(projectTable.getWidth() / (projectTable.getColumnCount() + 1));
 			
 			budgetTable.getColumnModel().getColumn(0).setMaxWidth(Integer.MAX_VALUE);
-			budgetTable.getColumnModel().getColumn(0).setPreferredWidth(budgetTable.getWidth() / budgetTable.getColumnCount());
+			budgetTable.getColumnModel().getColumn(0).setPreferredWidth(budgetTable.getWidth() / (budgetTable.getColumnCount() + 1));
 			
 			showNetID = true;
 		}
 	}
+
 	
 	static class ButtonListener implements ActionListener {		
 		public void actionPerformed(ActionEvent e) {
-			if (e.getActionCommand() == "⚙ Local settings") {
-				Settings.launchEditor();
+			if (e.getActionCommand() == "log new print") {
+				PrintLogger.show();
 			}
 			if (e.getActionCommand() == "Refresh database") {
 				Database.refresh();
 			}
 			if (e.getActionCommand() == "Show / Hide NetID") {
 				Main.showHideNetID();
+			}
+			if (e.getActionCommand() == "⚙ Local settings") {
+				Settings.launchEditor();
 			}
 		}
 	}
