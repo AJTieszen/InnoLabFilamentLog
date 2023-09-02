@@ -177,7 +177,7 @@ public class Database {
 		Database.readBudgets();
 		
 		if (!Main.showNetID) {
-			Main.createLayout();
+			Main.showHideNetID();
 			Main.showHideNetID();
 		}
 		Main.statMessage.setText("OK");
