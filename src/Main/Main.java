@@ -166,7 +166,7 @@ public class Main {
 	
 	static class ButtonListener implements ActionListener {		
 		public void actionPerformed(ActionEvent e) {
-			if (e.getActionCommand() == "log new print") {
+			if (e.getActionCommand() == "Log new print") {
 				PrintLogger.show();
 			}
 			if (e.getActionCommand() == "Refresh database") {
