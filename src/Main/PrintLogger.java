@@ -40,8 +40,8 @@ public class PrintLogger {
 		
 //		Initialize components
 		JPanel form = new JPanel(new GridLayout(0, 2, 20, 2));
-		classCheck = new JCheckBox("This print is for a class session.");
-		classCheck.addActionListener(new CheckBoxListener());
+		classCheck = new JCheckBox("This print is for a class session.", false);
+		classCheck.addItemListener(new CheckBoxListener());
 		idLabel = new JLabel(idText[0]);
 		idField = new JTextField();
 		studLabel = new JLabel("Student name:");
@@ -91,11 +91,13 @@ public class PrintLogger {
 		logWindow.setVisible(true);
 	}
 	
-	static class CheckBoxListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	static class CheckBoxListener implements ItemListener {
+		public static boolean forClass = false;
+		
+		public void itemStateChanged(ItemEvent e) {
 			System.out.println("Checkbox");
 			
-			boolean forClass = classCheck.isSelected();
+			boolean forClass = e.getStateChange() == 1;
 			idLabel.setText(idText[forClass? 1 : 0]);
 			profLabel.setEnabled(forClass);
 			profField.setEnabled(forClass);
