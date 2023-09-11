@@ -6,111 +6,113 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 public class PrintLogger {
-	private static JFrame logWindow = new JFrame("Enter print information");
+	private static JFrame logWindow;
 	
-	public static final String idText[] = {"NetID:", "Course / Organization:"};
+	private static JLabel logType;
+	private static JCheckBox classPrint;
+	private static JLabel idLabel;
+	private static JTextField idBox;
+	private static JTextField nameBox;
+	private static JLabel courseLabel;
+	private static JTextField courseBox;
 	
-	public static JCheckBox classCheck;
-	public static JLabel idLabel;
-	public static JTextField idField;
-	public static JLabel studLabel;
-	public static JTextField studField;
-	public static JLabel profLabel;
-	public static JTextField profField;
-	public static JLabel projLabel;
-	public static JTextField projField;
-	public static JLabel ticketLabel;
-	public static JTextField ticketField;
-	public static JLabel filamentLabel;
-	public static JTextField filamentField;
-	public static JLabel amountLabel;
-	public static JTextField amountField;
-	
-	public static JButton submit;
+	private static boolean forClass = false;
 	
 	public static void show() {
 //		Create Border
 		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
 		
 //		Setup Window
+		logWindow = new JFrame("Enter print information");
 		logWindow.setSize(640, 480);
 		logWindow.setLayout(new BorderLayout());
 		logWindow.setIconImage(Main.printerIcon.getImage());
 		logWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		ButtonListener bl = new ButtonListener();
 		
-//		Initialize components
-		JPanel form = new JPanel(new GridLayout(0, 2, 20, 2));
-		classCheck = new JCheckBox("This print is for a class session.", false);
-		classCheck.addItemListener(new CheckBoxListener());
-		idLabel = new JLabel(idText[0]);
-		idField = new JTextField();
-		studLabel = new JLabel("Student name:");
-		studField = new JTextField();
-		profLabel = new JLabel("Professor / Representative name:");
-		profLabel.setEnabled(false);
-		profField = new JTextField();
-		profField.setEnabled(false);
-		projLabel = new JLabel("Project name:");
-		projField = new JTextField();
-		ticketLabel = new JLabel("Ticket #:");
-		ticketField = new JTextField();
-		filamentLabel = new JLabel("Filament type:");
-		filamentField = new JTextField();
-		amountLabel = new JLabel("Amount used:");
-		amountField = new JTextField();
+//		Create log mode button
+		JPanel logPanel = new JPanel();
+		logPanel.setBorder(bottomBorder);
+		logPanel.setLayout(new BoxLayout(logPanel, BoxLayout.Y_AXIS));
+		JPanel toggleP1 = new JPanel (new FlowLayout());
+		toggleP1.setBorder(bottomBorder);
+		toggleP1.setOpaque(false);
+		classPrint = new JCheckBox("Log Class Print");
+		classPrint.setActionCommand("Switch");
+		classPrint.addActionListener(bl);
+		logType = new JLabel();
+		toggleP1.add(classPrint);
+		logPanel.add(toggleP1);
 		
-//		Add components to window
-		form.add(classCheck);
-		form.add(new JLabel(""));
-		form.add(idLabel);
-		form.add(idField);
-		form.add(studLabel);
-		form.add(studField);
-		form.add(profLabel);
-		form.add(profField);
-		form.add(projLabel);
-		form.add(projField);
-		form.add(ticketLabel);
-		form.add(ticketField);
-		form.add(filamentLabel);
-		form.add(filamentField);
-		form.add(amountLabel);
-		form.add(amountField);
-		form.setBorder(bottomBorder);
+//		Create log layout
+		JPanel logGrid = new JPanel(new GridLayout(0, 2, 20, 2));
+		idLabel = new JLabel();
+		idLabel.setPreferredSize(new Dimension(150, 10));
+		idBox = new JTextField();
+		logGrid.add(idLabel);
+		logGrid.add(idBox);
 		
-//		Add submit button
-		JPanel rightButton = new JPanel(new BorderLayout());
-		submit = new JButton("Submit");
-		submit.addActionListener(new ButtonListener());
-		rightButton.add(submit, BorderLayout.EAST);
+		nameBox = new JTextField();
+		logGrid.add(new JLabel("Requester Name:"));
+		logGrid.add(nameBox);
 		
-		logWindow.add(form, BorderLayout.CENTER);
-		logWindow.add(rightButton, BorderLayout.SOUTH);
+		courseLabel = new JLabel("Course or Organization Name:");
+		courseBox = new JTextField();
+		logGrid.add(courseLabel);
+		logGrid.add(courseBox);
+		
+		logPanel.add(logGrid);
+		logWindow.add(logPanel, BorderLayout.CENTER);
+		
+//		Create submit button
+		JPanel submitButton = new JPanel(new BorderLayout());
+		JButton submit = new JButton("Submit");
+		submit.addActionListener(bl);
+		submitButton.add(submit, BorderLayout.EAST);
+		logWindow.add(submitButton, BorderLayout.SOUTH);
+		
+//		Finalize and display window
+		toggleText();
 		logWindow.pack();
-		
 		logWindow.setVisible(true);
 	}
 	
-	static class CheckBoxListener implements ItemListener {
-		public static boolean forClass = false;
-		
-		public void itemStateChanged(ItemEvent e) {
-			System.out.println("Checkbox");
-			
-			boolean forClass = e.getStateChange() == 1;
-			idLabel.setText(idText[forClass? 1 : 0]);
-			profLabel.setEnabled(forClass);
-			profField.setEnabled(forClass);
+	public static void submit() {
+		logWindow.dispose();
+	}
+	public static void toggle() {
+		forClass = classPrint.isSelected();
+		toggleText();
+	}
+	public static void toggleText() {
+		if (forClass) {
+			logType.setText("Log individual print");
+			idLabel.setText("Course # or Organization:");
+			if (idBox.getText().equalsIgnoreCase("Cxxxxxxxxx")) {
+				idBox.setText("");
+			}
 		}
+		else {
+			logType.setText("Log class print");
+			idLabel.setText("NetID:");
+			if (idBox.getText().isEmpty()) {
+				idBox.setText("Cxxxxxxxxx");
+			}
+		}
+		courseLabel.setEnabled(forClass);
+		courseBox.setEnabled(forClass);
+		
+		logWindow.repaint();
 	}
 	
-	static class ButtonListener implements ActionListener {
+	public static class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			long time = System.currentTimeMillis();
-			java.sql.Date date = new java.sql.Date(time);
-			System.out.println(date);
-			
-			logWindow.dispose();
+			if (e.getActionCommand() == "Submit") {
+				PrintLogger.submit();
+			}
+			if (e.getActionCommand() == "Switch") {
+				PrintLogger.toggle();
+			}
 		}
 	}
 }

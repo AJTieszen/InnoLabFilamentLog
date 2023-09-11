@@ -32,6 +32,7 @@ public class Settings {
 		settingsEditor.setSize(640, 480);
 		settingsEditor.setLayout(new BorderLayout());
 		settingsEditor.setIconImage(Main.printerIcon.getImage());
+		settingsEditor.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		fileDir = new JTextField(db_directory);
 		fileName = new JTextField(db_file);
@@ -39,7 +40,7 @@ public class Settings {
 		courseBudget = new JTextField(course_budget.toString());
 		
 //		Create main section
-		JPanel settingsArea = new JPanel ();
+		JPanel settingsArea = new JPanel();
 		settingsArea.setLayout(new BoxLayout(settingsArea, BoxLayout.Y_AXIS));
 		
 		JPanel settingsGrid1 = new JPanel(new GridLayout(0, 2, 20, 2));
