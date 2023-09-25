@@ -78,6 +78,7 @@ public class Settings {
 //		Display window
 		settingsEditor.pack();
 		settingsEditor.setVisible(true);
+		settingsEditor.setLocation(new Point(Main.mainWindow.getLocation().x + (Main.mainWindow.getWidth() - settingsEditor.getWidth()) / 2, Main.mainWindow.getLocation().y + (Main.mainWindow.getHeight() - settingsEditor.getHeight()) / 2));
 	}
 	
 	public static void submit() {

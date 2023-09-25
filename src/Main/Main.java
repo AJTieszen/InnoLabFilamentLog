@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -27,6 +29,8 @@ public class Main {
 	public static final int MIN_FRAME_WIDTH = 640;
 	public static final int MIN_FRAME_HEIGHT = 480;
 	public static final int L_PANEL_WIDTH = 250;
+	
+	public static final JFrame mainWindow = new JFrame("Innovation Lab Print Log");
 
 	public static final ImageIcon innoLabIcon = new ImageIcon("InnovationLabLogo.png");
 	public static final ImageIcon printerIcon = new ImageIcon("Ender3Logo.png");
@@ -62,8 +66,8 @@ public class Main {
 		Border rightBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, Color.black);
 		
 //		Create main window
-		JFrame mainWindow = new JFrame("Innovation Lab Print Log");
 		mainWindow.setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+		mainWindow.setLocation(new Point((Toolkit.getDefaultToolkit().getScreenSize().width - mainWindow.getWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - mainWindow.getHeight()) / 2));
         mainWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainWindow.setIconImage(printerIcon.getImage());
 		mainWindow.setMinimumSize(new Dimension(MIN_FRAME_WIDTH, MIN_FRAME_HEIGHT));

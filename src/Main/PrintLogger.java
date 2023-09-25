@@ -75,6 +75,7 @@ public class PrintLogger {
 		toggleText();
 		logWindow.pack();
 		logWindow.setVisible(true);
+		logWindow.setLocation(new Point(Main.mainWindow.getLocation().x + (Main.mainWindow.getWidth() - logWindow.getWidth()) / 2, Main.mainWindow.getLocation().y + (Main.mainWindow.getHeight() - logWindow.getHeight()) / 2));
 	}
 	
 	public static void submit() {
