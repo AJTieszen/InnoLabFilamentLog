@@ -18,10 +18,10 @@ public class PrintLogger {
 	private static JTextField nameBox;
 	private static JLabel courseLabel;
 	private static JTextField courseBox;
-	private static JTextField project;
-	private static JTextField ticket;
-	private static JComboBox<String> material;
-	private static JFormattedTextField amount;
+	private static JTextField projectBox;
+	private static JTextField ticketBox;
+	private static JComboBox<String> materialBox;
+	private static JFormattedTextField amountBox;
 	
 	private static boolean forClass = false;
 	
@@ -53,7 +53,7 @@ public class PrintLogger {
 		
 //		Create log layout
 		JPanel logGrid = new JPanel(new GridLayout(0, 2, 20, 2));
-		idLabel = new JLabel();
+		idLabel = new JLabel("NetID");
 		idLabel.setPreferredSize(new Dimension(150, 10));
 		idBox = new JTextField();
 		logGrid.add(idLabel);
@@ -68,27 +68,26 @@ public class PrintLogger {
 		logGrid.add(courseLabel);
 		logGrid.add(courseBox);
 		
-		project = new JTextField();
-		logGrid.add(new JLabel("Project:"));
-		logGrid.add(project);
+		projectBox = new JTextField();
+		logGrid.add(new JLabel("Project Name:"));
+		logGrid.add(projectBox);
 		
-		ticket = new JTextField();
+		ticketBox = new JTextField();
 		logGrid.add(new JLabel("Ticket #:"));
-		logGrid.add(ticket);
+		logGrid.add(ticketBox);
 		
 		String[] mats = {"PETG", "PLA", "TPU", "ABS", "Other"};
-		material = new JComboBox<String>(mats);
+		materialBox = new JComboBox<String>(mats);
 		logGrid.add(new JLabel("Material:"));
-		logGrid.add(material);
+		logGrid.add(materialBox);
 		
 		NumberFormat fmt = NumberFormat.getIntegerInstance();
 		NumberFormatter formatter = new NumberFormatter(fmt);
-//		formatter.setAllowsInvalid(false);
 		formatter.setMinimum(0);
-		formatter.setMaximum(Integer.MAX_VALUE);
-		amount = new JFormattedTextField(formatter);
+		formatter.setMaximum(32767);
+		amountBox = new JFormattedTextField(formatter);
 		logGrid.add(new JLabel("Amount (g):"));
-		logGrid.add(amount);
+		logGrid.add(amountBox);
 		
 		logPanel.add(logGrid);
 		logWindow.add(logPanel, BorderLayout.CENTER);
@@ -108,7 +107,24 @@ public class PrintLogger {
 	}
 	
 	public static void submit() {
-		logWindow.dispose();
+		Main.statMessage.setText("Writing Print to database...");
+		
+		String date = java.time.LocalDate.now().toString();
+		String netid = idBox.getText();
+		String name = nameBox.getText();
+		String course = courseBox.getText();
+		String project = projectBox.getText();
+		String ticket = ticketBox.getText();
+		String material = materialBox.getSelectedItem().toString();
+		String amt = amountBox.getText().replace(",", "");
+		System.out.println(amt);
+		if (amt.length() == 0 || material.length() == 0 || ticket.length() ==0 || project.length() == 0 || name.length() == 0 || netid.length() == 0 || (forClass && course.length() == 0)) {
+			JOptionPane.showMessageDialog(null, "Please fill out all fields for this print type.");
+			return;
+		}
+		int amount = Integer.parseInt(amt);
+		
+		Database.logPrint(date, netid, name, project, ticket, amount, material);
 	}
 	public static void toggle() {
 		forClass = classPrint.isSelected();
@@ -117,11 +133,9 @@ public class PrintLogger {
 	public static void toggleText() {
 		if (forClass) {
 			logType.setText("Log individual print");
-			idLabel.setText("Course # or Organization:");
 		}
 		else {
 			logType.setText("Log class print");
-			idLabel.setText("NetID:");
 		}
 		courseLabel.setEnabled(forClass);
 		courseBox.setEnabled(forClass);

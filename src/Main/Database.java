@@ -33,7 +33,7 @@ public class Database {
 	    	
 //	    	Create tables
 	    	String sqls[] = {
-	    			"Create Table Budgets( id text(10) PRIMARY KEY, name text(60), usage integer, brought integer, remaining integer ) ",
+	    			"Create Table Budgets( id text(10) PRIMARY KEY, name text(60), usage integer, brought numeric, remaining integer ) ",
 	    			"Create Table Projects( ticket text(15) PRIMARY KEY, date text(10), netid text(10) REFERENCES Budgets(id) , name text(60), project text(20), usage integer, material text(5) )"
 	    			};
 	    	
