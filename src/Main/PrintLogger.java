@@ -2,8 +2,11 @@ package Main;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.NumberFormat;
+
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.text.NumberFormatter;
 
 public class PrintLogger {
 	private static JFrame logWindow;
@@ -15,6 +18,10 @@ public class PrintLogger {
 	private static JTextField nameBox;
 	private static JLabel courseLabel;
 	private static JTextField courseBox;
+	private static JTextField project;
+	private static JTextField ticket;
+	private static JComboBox<String> material;
+	private static JFormattedTextField amount;
 	
 	private static boolean forClass = false;
 	
@@ -60,6 +67,28 @@ public class PrintLogger {
 		courseBox = new JTextField();
 		logGrid.add(courseLabel);
 		logGrid.add(courseBox);
+		
+		project = new JTextField();
+		logGrid.add(new JLabel("Project:"));
+		logGrid.add(project);
+		
+		ticket = new JTextField();
+		logGrid.add(new JLabel("Ticket #:"));
+		logGrid.add(ticket);
+		
+		String[] mats = {"PETG", "PLA", "TPU", "ABS", "Other"};
+		material = new JComboBox<String>(mats);
+		logGrid.add(new JLabel("Material:"));
+		logGrid.add(material);
+		
+		NumberFormat fmt = NumberFormat.getIntegerInstance();
+		NumberFormatter formatter = new NumberFormatter(fmt);
+//		formatter.setAllowsInvalid(false);
+		formatter.setMinimum(0);
+		formatter.setMaximum(Integer.MAX_VALUE);
+		amount = new JFormattedTextField(formatter);
+		logGrid.add(new JLabel("Amount (g):"));
+		logGrid.add(amount);
 		
 		logPanel.add(logGrid);
 		logWindow.add(logPanel, BorderLayout.CENTER);
