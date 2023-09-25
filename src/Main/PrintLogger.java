@@ -118,16 +118,10 @@ public class PrintLogger {
 		if (forClass) {
 			logType.setText("Log individual print");
 			idLabel.setText("Course # or Organization:");
-			if (idBox.getText().equalsIgnoreCase("Cxxxxxxxxx")) {
-				idBox.setText("");
-			}
 		}
 		else {
 			logType.setText("Log class print");
 			idLabel.setText("NetID:");
-			if (idBox.getText().isEmpty()) {
-				idBox.setText("Cxxxxxxxxx");
-			}
 		}
 		courseLabel.setEnabled(forClass);
 		courseBox.setEnabled(forClass);
