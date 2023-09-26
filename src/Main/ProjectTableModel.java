@@ -3,6 +3,7 @@ package Main;
 import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
+
 public class ProjectTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private String[] columnNames = {"Date", "NetID / Course", "Name", "Project", "Ticket #", "Usage (g)", "Material"};
