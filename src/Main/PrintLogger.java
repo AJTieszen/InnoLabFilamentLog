@@ -25,6 +25,8 @@ public class PrintLogger {
 	private static JTextField courseIDBox;
 	private static JLabel courseLabel;
 	private static JTextField courseBox;
+	private static JLabel participantLabel;
+	private static JFormattedTextField participantBox;
 	
 	private static boolean forClass = false;
 	
@@ -39,6 +41,7 @@ public class PrintLogger {
 		logWindow.setLayout(new BorderLayout());
 		logWindow.setIconImage(Main.printerIcon.getImage());
 		logWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		logWindow.setAlwaysOnTop(true);
 		ButtonListener bl = new ButtonListener();
 		
 //		Create log mode button
@@ -97,6 +100,10 @@ public class PrintLogger {
 		courseIDBox = new JTextField();
 		courseLabel = new JLabel("Course or Organization Name:");
 		courseBox = new JTextField();
+		participantLabel = new JLabel("Expected Participants:");
+		formatter.setMinimum(1);
+		formatter.setMaximum(999);
+		participantBox = new JFormattedTextField(formatter);
 		
 		logPanel.add(logGrid);
 		logWindow.add(logPanel, BorderLayout.CENTER);
@@ -165,7 +172,13 @@ public class PrintLogger {
 			if (courseExists) {
 				course = Database.getUserName(courseid);
 			} else {
-				Database.logUser(courseid, course, Settings.getCourseBudget());
+				int budget = Settings.getCourseBudget();
+				String participants = participantBox.getText().strip();
+				int budget2 = budget;
+				if (participants.length() != 0) budget2 = Integer.parseInt(participants) * Settings.getCoursePerStud();
+				budget = Integer.min(budget, budget2);
+				
+				Database.logUser(courseid, course, budget);
 			}
 			Database.updateUser(courseid, amount, 0);
 			netid = courseid;
@@ -186,12 +199,16 @@ public class PrintLogger {
 			logGrid.add(courseIDLabel);
 			logGrid.add(courseIDBox);
 			logGrid.add(courseLabel);
-			logGrid.add(courseBox);			
+			logGrid.add(courseBox);	
+			logGrid.add(participantLabel);
+			logGrid.add(participantBox);
 		} else {
 			logGrid.remove(courseIDLabel);
 			logGrid.remove(courseIDBox);
 			logGrid.remove(courseLabel);
-			logGrid.remove(courseBox);			
+			logGrid.remove(courseBox);
+			logGrid.remove(participantLabel);
+			logGrid.remove(participantBox);			
 		}
 		
 		logWindow.pack();

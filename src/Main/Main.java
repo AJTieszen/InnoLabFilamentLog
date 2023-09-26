@@ -95,7 +95,7 @@ public class Main {
 		leftPanel.add(centerImage);
 
 //		Create Button Panel
-		String[] labels = {"Log new print", "Look up student", "Show / Hide NetID", "New semester database", "Refresh database", "⚙ Local settings"};
+		String[] labels = {"Log new print", "Log Filament Brought", "Show / Hide NetID", "New semester database", "Refresh database", "⚙ Local settings"};
 		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1));
 		for(String label : labels) {
 			JButton btn = new JButton(label);
@@ -175,6 +175,9 @@ public class Main {
 			}
 			if (e.getActionCommand() == "Refresh database") {
 				Database.refresh();
+			}
+			if (e.getActionCommand() == "Log Filament Brought") {
+				BroughtFilament.show();
 			}
 			if (e.getActionCommand() == "Show / Hide NetID") {
 				Main.showHideNetID();

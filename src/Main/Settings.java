@@ -16,11 +16,13 @@ public class Settings {
 	
 	private static Integer student_budget = 500;
 	private static Integer course_budget = 3000;
+	private static Integer course_per_stud = 200;
 
 	private static JTextField fileDir;
 	private static JTextField fileName;
 	private static JTextField studentBudget;
 	private static JTextField courseBudget;
+	private static JTextField coursePerStud;
 	
 	private static JFrame settingsEditor = new JFrame("Settings");
 	
@@ -32,12 +34,14 @@ public class Settings {
 		settingsEditor.setSize(640, 480);
 		settingsEditor.setLayout(new BorderLayout());
 		settingsEditor.setIconImage(Main.printerIcon.getImage());
+		settingsEditor.setAlwaysOnTop(true);
 		settingsEditor.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		fileDir = new JTextField(db_directory);
 		fileName = new JTextField(db_file);
 		studentBudget = new JTextField(student_budget.toString());
 		courseBudget = new JTextField(course_budget.toString());
+		coursePerStud = new JTextField(course_per_stud.toString());
 		
 //		Create main section
 		JPanel settingsArea = new JPanel();
@@ -59,6 +63,8 @@ public class Settings {
 		settingsGrid2.add(studentBudget);
 		settingsGrid2.add(new JLabel("Class Budget (g):"));
 		settingsGrid2.add(courseBudget);
+		settingsGrid2.add(new JLabel("Class Budget Per Student:"));
+		settingsGrid2.add(coursePerStud);
 
 		settingsArea.add(title1);
 		settingsArea.add(settingsGrid1);
@@ -100,11 +106,12 @@ public class Settings {
 		try {
 			FileWriter writer = new FileWriter(Main.initFile.getPath());
 			writer.write("File Path:\n");
-			writer.write("Database directory = " + db_directory + "\n");
-			writer.write("Database filename  = " + db_file + "\n");
+			writer.write("Database directory        = " + db_directory + "\n");
+			writer.write("Database filename         = " + db_file + "\n");
 			writer.write("Filament Allocations:\n");
-			writer.write("Student Budget (g) = " + student_budget + "\n");
-			writer.write("Class Budget (g)   = " + course_budget + "\n");
+			writer.write("Student Budget (g)        = " + student_budget + "\n");
+			writer.write("Class Budget (g)          = " + course_budget + "\n");
+			writer.write("Class Budget Per Student  = " + course_budget + "\n");
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -147,12 +154,20 @@ public class Settings {
 			student_budget = Integer.parseInt(lineScanner.next());
 			lineScanner.close();
 			
-//			Read student budget
+//			Read course budget
 			line = scanner.nextLine();
 			lineScanner = new Scanner(line);
 			lineScanner.useDelimiter("= ");
 			lineScanner.next();
 			course_budget = Integer.parseInt(lineScanner.next());
+			lineScanner.close();
+			
+//			Read course budget
+			line = scanner.nextLine();
+			lineScanner = new Scanner(line);
+			lineScanner.useDelimiter("= ");
+			lineScanner.next();
+			course_per_stud = Integer.parseInt(lineScanner.next());
 			lineScanner.close();
 			
 			scanner.close();
@@ -180,6 +195,10 @@ public class Settings {
 	
 	public static int getCourseBudget() {
 		return course_budget;
+	}
+	
+	public static int getCoursePerStud() {
+		return course_per_stud;
 	}
 	
 	public static void setDbDirectory(String dir) {
