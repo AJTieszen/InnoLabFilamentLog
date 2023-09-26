@@ -139,7 +139,7 @@ public class PrintLogger {
 		
 //		Clean up input fields
 		if (amt.length() == 0 || material.length() == 0 || ticket.length() ==0 || project.length() == 0 || name.length() == 0 || netid.length() == 0 || (forClass && course.length() == 0 && courseid.length() == 0)) {
-			JOptionPane.showMessageDialog(null, "Please fill out all fields for this print type.");
+			JOptionPane.showMessageDialog(logWindow, "Please fill out all fields for this print type.");
 			return;
 		}
 		
