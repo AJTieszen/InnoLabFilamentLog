@@ -88,7 +88,7 @@ public class PrintLogger {
 		NumberFormat fmt = NumberFormat.getIntegerInstance();
 		NumberFormatter formatter = new NumberFormatter(fmt);
 		formatter.setMinimum(0);
-		formatter.setMaximum(Integer.MAX_VALUE);
+		formatter.setMaximum(999999999);
 		amountBox = new JFormattedTextField(formatter);
 		logGrid.add(new JLabel("Amount (g):"));
 		logGrid.add(amountBox);
