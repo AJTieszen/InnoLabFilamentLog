@@ -11,6 +11,7 @@ import javax.swing.text.NumberFormatter;
 public class PrintLogger {
 	private static JFrame logWindow;
 	private static JCheckBox classPrint;
+	private static JPanel logGrid;
 	
 	private static JTextField dateBox;
 	private static JLabel idLabel;
@@ -30,6 +31,7 @@ public class PrintLogger {
 	public static void show() {
 //		Create Border
 		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
+		forClass = false;
 		
 //		Setup Window
 		logWindow = new JFrame("Enter print information");
@@ -53,7 +55,7 @@ public class PrintLogger {
 		logPanel.add(toggleP1);
 		
 //		Create log layout
-		JPanel logGrid = new JPanel(new GridLayout(0, 2, 20, 2));
+		logGrid = new JPanel(new GridLayout(0, 2, 20, 2));
 		
 		dateBox = new JTextField();
 		dateBox.setText(java.time.LocalDate.now().toString().replace('-', '/'));
@@ -61,7 +63,7 @@ public class PrintLogger {
 		logGrid.add(dateBox);
 		
 		idLabel = new JLabel("NetID:");
-		idLabel.setPreferredSize(new Dimension(150, 10));
+		idLabel.setPreferredSize(new Dimension(175, 10));
 		idBox = new JTextField();
 		logGrid.add(idLabel);
 		logGrid.add(idBox);
@@ -93,13 +95,8 @@ public class PrintLogger {
 		
 		courseIDLabel = new JLabel("Course or Organization ID:");
 		courseIDBox = new JTextField();
-		logGrid.add(courseIDLabel);
-		logGrid.add(courseIDBox);
-		
 		courseLabel = new JLabel("Course or Organization Name:");
 		courseBox = new JTextField();
-		logGrid.add(courseLabel);
-		logGrid.add(courseBox);
 		
 		logPanel.add(logGrid);
 		logWindow.add(logPanel, BorderLayout.CENTER);
@@ -185,10 +182,17 @@ public class PrintLogger {
 		toggleText();
 	}
 	public static void toggleText() {
-		courseIDLabel.setVisible(forClass);
-		courseIDBox.setVisible(forClass);
-		courseLabel.setVisible(forClass);
-		courseBox.setVisible(forClass);
+		if (forClass) {
+			logGrid.add(courseIDLabel);
+			logGrid.add(courseIDBox);
+			logGrid.add(courseLabel);
+			logGrid.add(courseBox);			
+		} else {
+			logGrid.remove(courseIDLabel);
+			logGrid.remove(courseIDBox);
+			logGrid.remove(courseLabel);
+			logGrid.remove(courseBox);			
+		}
 		
 		logWindow.pack();
 		logWindow.repaint();
