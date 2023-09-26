@@ -33,8 +33,8 @@ public class Database {
 	    	
 //	    	Create tables
 	    	String sqls[] = {
-	    			"Create Table Budgets( id text(10) PRIMARY KEY, name text(60), usage integer, brought numeric, remaining integer ) ",
-	    			"Create Table Projects( ticket text(15) PRIMARY KEY, date text(10), netid text(10) REFERENCES Budgets(id) , name text(60), project text(20), usage integer, material text(5) )"
+	    			"Create Table Budgets( id text(10) PRIMARY KEY, name text(60), usage long, brought long, remaining long ) ",
+	    			"Create Table Projects( ticket text(15) PRIMARY KEY, date text(10), netid text(10) REFERENCES Budgets(id) , name text(60), project text(20), usage long, material text(5) )"
 	    			};
 	    	
 	    	for (String sql : sqls)
@@ -85,7 +85,7 @@ public class Database {
 		    	Main.projectTable.setValueAt(netid, row, 1);
 		    	Main.projectTable.setValueAt(name, row, 2);
 		    	Main.projectTable.setValueAt(project, row, 3);
-		    	Main.projectTable.setValueAt("#" + ticket, row, 4);
+		    	Main.projectTable.setValueAt(ticket, row, 4);
 		    	Main.projectTable.setValueAt(usage, row, 5);
 		    	Main.projectTable.setValueAt(material, row, 6);
 	    	}
@@ -214,6 +214,7 @@ public class Database {
 		}
     	return userExists;
 	}
+	
 	public static void refresh() {
 		Main.statMessage.setText("Refreshing Database");
 		Main.projectTable.setModel(new ProjectTableModel());
@@ -291,5 +292,30 @@ public class Database {
 		}
 	}
 	
+	public static String getUserName(String netid) {
+		String userName = "";
+		try {
+//    		Create database connection
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+	    	String connPath = "jdbc:ucanaccess://" + Settings.getFilePath() + ";singleconnection=true";
+	    	db_connection = DriverManager.getConnection(connPath);
+	    	Statement stmt = db_connection.createStatement();
+	    	
+//	    	check if user is already in database
+	    	String sql = "select * from Budgets where id = '" + netid + "'";
+	    	ResultSet result = stmt.executeQuery(sql);
+	    	result.next();
+	    	userName = result.getObject("name").toString();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+				if (db_connection != null) db_connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}				
+		}
+		return userName;
+	}
 }
 
