@@ -153,14 +153,26 @@ public class PrintLogger {
 			ticket = "#" + ticket;
 		}
 		
-//		Log prints
+//		Log student users
 		boolean studentExists = Database.checkUserExists(netid);
 		if (studentExists) {
 			name = Database.getUserName(netid);
 		} else {
 			Database.logUser(netid, name, Settings.getStudentBudget());
 		}
-		Database.updateUser(netid, amount, 0);
+		if (!forClass) Database.updateUser(netid, amount, 0);
+		
+//		Log organizational users
+		if (forClass) {
+			boolean courseExists = Database.checkUserExists(courseid);
+			if (courseExists) {
+				course = Database.getUserName(courseid);
+			} else {
+				Database.logUser(courseid, course, Settings.getCourseBudget());
+			}
+			Database.updateUser(courseid, amount, 0);
+			netid = courseid;
+		}
 		
 		Database.logPrint(date, netid, name, project, ticket, amount, material);
 		

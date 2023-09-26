@@ -270,7 +270,7 @@ public class Database {
 	    	Statement stmt = db_connection.createStatement();
 	    	
 //	    	check if ticket is already in database
-	    	String sql = "select * from Budgets order by remaining desc";
+	    	String sql = "select * from Budgets order by remaining asc";
 	    	ResultSet result = stmt.executeQuery(sql);
 	    	
 	    	while(result.next()) {
