@@ -93,14 +93,17 @@ public class Settings {
 		String f = fileName.getText();
 		String sb = studentBudget.getText();
 		String cb = courseBudget.getText();
+		String cbp = coursePerStud.getText();
 		int sbudget = Integer.parseInt(sb);
 		int cbudget = Integer.parseInt(cb);
+		int cpbudget = Integer.parseInt(cbp);
 		
 //		Apply settings
 		db_directory = dir;
 		db_file = f;
 		student_budget = sbudget;
 		course_budget = cbudget;
+		course_per_stud = cpbudget;
 		
 //		Write settings to file
 		try {
@@ -111,7 +114,7 @@ public class Settings {
 			writer.write("Filament Allocations:\n");
 			writer.write("Student Budget (g)        = " + student_budget + "\n");
 			writer.write("Class Budget (g)          = " + course_budget + "\n");
-			writer.write("Class Budget Per Student  = " + course_budget + "\n");
+			writer.write("Class Budget Per Student  = " + course_per_stud + "\n");
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();

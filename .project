@@ -16,11 +16,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>src/3D Print Log.ini</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/3D%20Print%20Log.ini</locationURI>
-		</link>
-		<link>
 			<name>src/test.accdb</name>
 			<type>1</type>
 			<locationURI>PARENT-3-PROJECT_LOC/test/test.accdb</locationURI>
