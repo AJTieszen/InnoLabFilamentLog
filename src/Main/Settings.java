@@ -40,6 +40,7 @@ public class Settings {
 		fileDir = new JTextField(db_directory);
 		fileName = new JTextField(db_file);
 		studentBudget = new JTextField(student_budget.toString());
+		studentBudget.setPreferredSize(new Dimension(175, 25));
 		courseBudget = new JTextField(course_budget.toString());
 		coursePerStud = new JTextField(course_per_stud.toString());
 		

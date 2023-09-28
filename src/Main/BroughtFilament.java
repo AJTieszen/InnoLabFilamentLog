@@ -5,15 +5,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.text.NumberFormatter;
 
+import Main.Settings.ButtonListener;
+
 public class BroughtFilament {
 	private static JFrame logWindow;
-	private static JTextField netidBox;
+
+	private static JTextField idBox;
 	private static JFormattedTextField amountBox;
 	
 	public static void show() {
@@ -31,12 +36,12 @@ public class BroughtFilament {
 //		Create main section
 		JPanel logArea = new JPanel();
 		logArea.setLayout(new BoxLayout(logArea, BoxLayout.Y_AXIS));
-		
 		JPanel logGrid = new JPanel(new GridLayout(0, 2, 20, 2));
-		netidBox = new JTextField();
-		netidBox.setPreferredSize(new Dimension(175, 25));
+		
+		idBox = new JTextField();
+		idBox.setPreferredSize(new Dimension(175, 25));
 		logGrid.add(new JLabel("NetID:"));
-		logGrid.add(netidBox);
+		logGrid.add(idBox);
 		
 		NumberFormat fmt = NumberFormat.getIntegerInstance();
 		NumberFormatter formatter = new NumberFormatter(fmt);
@@ -50,6 +55,7 @@ public class BroughtFilament {
 //		Create submit button
 		JPanel buttonPanel = new JPanel(new BorderLayout());
 		JButton submit = new JButton("Submit");
+		submit.addActionListener(new ButtonListener());
 		buttonPanel.add(submit, BorderLayout.EAST);
 		
 		logArea.add(logGrid);
@@ -61,5 +67,34 @@ public class BroughtFilament {
 		logWindow.setVisible(true);
 		logWindow.setMinimumSize(logWindow.getSize());
 		logWindow.setLocation(new Point(Main.mainWindow.getLocation().x + (Main.mainWindow.getWidth() - logWindow.getWidth()) / 2, Main.mainWindow.getLocation().y + (Main.mainWindow.getHeight() - logWindow.getHeight()) / 2));
+	}
+	
+	public static void submit() {
+//		Read Input Values
+		String netid = idBox.getText();
+		String amt = amountBox.getText().replace(",", "");
+		
+//		Clean up inputs
+		if (netid.length() == 0 || amt.length() == 0) {
+			JOptionPane.showMessageDialog(logWindow, "Please fill out all fields for this print type.");
+			return;
+		}
+		
+		int amount = Integer.parseInt(amt);
+		netid.replace('c', 'C');
+		if (netid.charAt(0) != 'C') {
+			netid = "C" + netid;
+		}
+		
+		Database.updateUser(netid, 0, amount);
+		
+		logWindow.dispose();
+	}
+	
+	static class ButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			BroughtFilament.submit();			
+		}
+		
 	}
 }

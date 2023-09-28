@@ -126,7 +126,7 @@ public class PrintLogger {
 	public static void submit() {
 		Main.statMessage.setText("Writing Print to database...");
 		
-//		Reading input values
+//		Read input values
 		String date = dateBox.getText();
 		String netid = idBox.getText();
 		String name = nameBox.getText();
