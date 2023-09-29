@@ -117,7 +117,7 @@ public class Database {
 	    	db_connection = DriverManager.getConnection(connPath);
 	    	Statement stmt = db_connection.createStatement();
 	    	
-//	    	check if ticket is already in database
+//	    	check if user is already in database
 	    	String sql = "select * from Budgets where id = '" + netid + "'";
 	    	ResultSet result = stmt.executeQuery(sql);
 	    	boolean userExists = result.next();

@@ -26,7 +26,7 @@ public class Settings {
 	
 	private static JFrame settingsEditor = new JFrame("Settings");
 	
-	public static void launchEditor() {
+	public static void show() {
 //		Create Border
 		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
 		
@@ -177,7 +177,7 @@ public class Settings {
 			scanner.close();
 		} catch(Exception e) {
 			Main.statMessage.setText("Init file format not recognized. Recreating...");
-			Settings.launchEditor();
+			Settings.show();
 		}
 	}
 	
