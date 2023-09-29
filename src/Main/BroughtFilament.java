@@ -13,8 +13,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.text.NumberFormatter;
 
-import Main.Settings.ButtonListener;
-
 public class BroughtFilament {
 	private static JFrame logWindow;
 
