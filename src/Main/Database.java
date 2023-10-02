@@ -156,7 +156,7 @@ public class Database {
 	    	db_connection = DriverManager.getConnection(connPath);
 	    	Statement stmt = db_connection.createStatement();
 	    	
-//	    	check if ticket is already in database
+//	    	check if user is already in database
 	    	String sql = "select * from Budgets where id = '" + netid + "'";
 	    	ResultSet result = stmt.executeQuery(sql);
 	    	boolean userExists = result.next();
@@ -173,6 +173,37 @@ public class Database {
 	    		remaining += deltaBrought - deltaUsage;
 	    		
 	    		sql = "update Budgets set usage = " + usage + ", brought = " + brought + ", remaining = " + remaining + " where id = '" + netid + "'";
+	    		stmt.executeUpdate(sql);
+	    		refresh();
+	    	}
+	    	else {
+	    		JOptionPane.showMessageDialog(null, "User " + netid + " not found.");	    		
+	    	}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+				if (db_connection != null) db_connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}				
+		}
+	}
+	public static void modifyUser(String netid, String name, int usage, int brought, int remaining) {		
+		try {
+//    		Create database connection
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+	    	String connPath = "jdbc:ucanaccess://" + Settings.getFilePath() + ";singleconnection=true";
+	    	db_connection = DriverManager.getConnection(connPath);
+	    	Statement stmt = db_connection.createStatement();
+	    	
+//	    	check if user is already in database
+	    	String sql = "select * from Budgets where id = '" + netid + "'";
+	    	ResultSet result = stmt.executeQuery(sql);
+	    	boolean userExists = result.next();
+	    	
+	    	if(userExists) {
+	    		sql = "update Budgets set name = '" + name + "', usage = " + usage + ", brought = " + brought + ", remaining = " + remaining + " where id = '" + netid + "'";
 	    		stmt.executeUpdate(sql);
 	    		refresh();
 	    	}
@@ -316,6 +347,30 @@ public class Database {
 			}				
 		}
 		return userName;
+	}
+	public static ResultSet search(String target, String column, String table) {
+		ResultSet result = null;
+		try {
+//    		Create database connection
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+	    	String connPath = "jdbc:ucanaccess://" + Settings.getFilePath() + ";singleconnection=true";
+	    	db_connection = DriverManager.getConnection(connPath);
+	    	Statement stmt = db_connection.createStatement();
+	    	
+//	    	check if user is already in database
+	    	String sql = "select * from " + table + " where " + column + " = '" + target + "'";
+	    	result = stmt.executeQuery(sql);
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+				if (db_connection != null) db_connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}				
+		}
+		
+		return result;
 	}
 }
 
