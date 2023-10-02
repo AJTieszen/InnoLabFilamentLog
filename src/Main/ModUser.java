@@ -158,6 +158,7 @@ public class ModUser {
 		
 //		Execute update
 		Database.modifyUser(netid, name, usage, brought, remaining);
+		logWindow.dispose();
 	}
 	
 	static class ButtonListener implements ActionListener {
