@@ -11,8 +11,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.text.NumberFormatter;
 
-import Main.ModUser.ButtonListener;
-
 public class ModPrint {
 	private static JFrame logWindow;
 	
@@ -24,6 +22,8 @@ public class ModPrint {
 	private static JTextField projectBox;
 	private static JComboBox<String> materialBox;
 	private static JFormattedTextField amountBox;
+	
+	private static boolean ticketFound = false;
 	
 	public static void show() {
 //		Create Border
@@ -101,11 +101,62 @@ public class ModPrint {
 		logWindow.setVisible(true);
 		logWindow.setMinimumSize(logWindow.getSize());
 		logWindow.setLocation(new Point(Main.mainWindow.getLocation().x + (Main.mainWindow.getWidth() - logWindow.getWidth()) / 2, Main.mainWindow.getLocation().y + (Main.mainWindow.getHeight() - logWindow.getHeight()) / 2));
+		ticketFound = false;
 	}
 	
+	private static void search() {
+		String ticket = ticketBox.getText();
+
+//		Clean up search input
+		if (ticket.length() == 0) {
+			JOptionPane.showMessageDialog(logWindow, "Please enter a valid ticket to search for.");
+			return;
+		}
+		
+		if (ticket.charAt(0) != '#') {
+			ticket = "#" + ticket;
+		}
+		
+//		Search database for ticket
+		ResultSet r = Database.search(ticket, "Ticket", "Projects");
+		try {
+			if(!r.next() || r == null) {
+				ticketBox2.setText(ticket + " not found");
+				dateBox.setText("");
+				netIDBox.setText("");
+				nameBox.setText("");
+				projectBox.setText("");
+				materialBox.setSelectedIndex(0);
+				amountBox.setText("");
+				
+				ticketFound = false;
+			} else {
+				ticketBox2.setText(ticket);
+				dateBox.setText(r.getObject("date").toString());
+				netIDBox.setText(r.getObject("netid").toString());
+				nameBox.setText(r.getObject("name").toString());
+				projectBox.setText(r.getObject("project").toString());
+				amountBox.setText(r.getObject("usage").toString());
+				
+//				Set combo box value
+				String mat = r.getObject("material").toString();
+				materialBox.setSelectedItem(mat);
+				if (!materialBox.getSelectedItem().equals(mat)) {
+					materialBox.setSelectedItem("Other");
+				}
+				
+				ticketFound = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	static class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (e.getActionCommand() == "🔎 Search") {
+				ModPrint.search();
+			}
 			
 		}
 	}
