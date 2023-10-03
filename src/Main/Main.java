@@ -95,7 +95,7 @@ public class Main {
 		leftPanel.add(centerImage);
 
 //		Create Button Panel
-		String[] labels = {"Log new print", "Log Filament Brought", "Show / Hide NetID", "Modify User", "Refresh database", "⚙ Local settings"};
+		String[] labels = {"Log new print", "Log Filament Brought", "Show / Hide NetID", "Modify User", "Modify Print", "Refresh database", "⚙ Local settings"};
 		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1));
 		for(String label : labels) {
 			JButton btn = new JButton(label);
@@ -181,6 +181,9 @@ public class Main {
 			}
 			if (e.getActionCommand() == "Modify User") {
 				ModUser.show();
+			}
+			if (e.getActionCommand() == "Modify Print") {
+				
 			}
 			if (e.getActionCommand() == "Show / Hide NetID") {
 				Main.showHideNetID();
