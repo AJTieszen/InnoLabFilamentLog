@@ -40,8 +40,6 @@ public class PrintLogger {
 		logWindow.setSize(640, 480);
 		logWindow.setLayout(new BorderLayout());
 		logWindow.setIconImage(Main.printerIcon.getImage());
-		logWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		logWindow.setAlwaysOnTop(true);
 		ButtonListener bl = new ButtonListener();
 		
 //		Create log mode button
