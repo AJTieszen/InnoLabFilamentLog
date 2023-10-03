@@ -45,6 +45,7 @@ public class ModUser {
 		logWindow.add(logArea);
 		
 		idBox = new JTextField();
+		idBox.addActionListener(new EnterKeyListener());
 		JButton b1 = new JButton("🔎 Search");
 		b1.addActionListener(new ButtonListener());
 		logGrid.add(new JLabel("Enter NetID:"));
@@ -170,6 +171,11 @@ public class ModUser {
 				ModUser.submit();
 			}
 		}
-		
+	}
+	
+	static class EnterKeyListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			ModUser.search();
+		}
 	}
 }
