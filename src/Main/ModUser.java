@@ -94,7 +94,7 @@ public class ModUser {
 		userFound = false;
 	}
 	
-	public static void search() {
+	private static void search() {
 		String netid = idBox.getText();
 		
 //		Clean up search input
@@ -132,7 +132,7 @@ public class ModUser {
 		}
 	}
 	
-	public static void submit() {
+	private static void submit() {
 //		Read input values
 		if (!userFound) return;
 		String netid = idBox2.getText();
@@ -143,7 +143,7 @@ public class ModUser {
 		
 //		Clean up inputs
 		if (netid.length() == 0 || name.length() == 0 || u.length() == 0 || b.length() == 0 || r.length() == 0) {
-			JOptionPane.showMessageDialog(logWindow, "Please fill out all fields for this print type.");
+			JOptionPane.showMessageDialog(logWindow, "Please fill out all fields.");
 			return;
 		}
 
