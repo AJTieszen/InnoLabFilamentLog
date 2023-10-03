@@ -152,12 +152,46 @@ public class ModPrint {
 		}
 	}
 	
+	private static void submit() {
+//		Read input values
+		if (!ticketFound) return;
+		String ticket = ticketBox2.getText();
+		String date = dateBox.getText();
+		String netid = netIDBox.getText();
+		String name = nameBox.getText();
+		String project = projectBox.getText();
+		String material = materialBox.getSelectedItem().toString();
+		String a = amountBox.getText();
+		
+//		Clean up inputs
+		if (ticket.length() == 0 || date.length() == 0 || netid.length() == 0 || name.length() == 0 || project.length() == 0 || material.length() == 0 || a.length() == 0) {
+			JOptionPane.showMessageDialog(logWindow, "Please fill out all fields.");
+			return;
+		}
+
+		netid.replace('c', 'C');
+		if (netid.charAt(0) != 'C') {
+			netid = "C" + netid;
+		}
+		
+		if (ticket.charAt(0) != '#') {
+			ticket = "#" + ticket;
+		}
+		
+		int amount = Integer.parseInt(a);
+		
+//		Execute update
+		
+	}
+	
 	static class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand() == "🔎 Search") {
 				ModPrint.search();
 			}
-			
+			if (e.getActionCommand() == "Submit") {
+				ModPrint.submit();
+			}
 		}
 	}
 }
