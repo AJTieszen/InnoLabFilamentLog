@@ -36,6 +36,7 @@ public class ModPrint {
 		logWindow.setSize(640, 480);
 		logWindow.setLayout(new BorderLayout());
 		logWindow.setIconImage(Main.printerIcon.getImage());
+		logWindow.setAlwaysOnTop(true);
 		logWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 //		Create main section
@@ -185,7 +186,7 @@ public class ModPrint {
 		String name;
 		if (Database.checkUserExists(netid)) name = Database.getUserName(netid);
 		else {
-			name = JOptionPane.showInputDialog("User not found. Please enter a username for " + netid + ".");
+			name = JOptionPane.showInputDialog(logWindow, "User not found. Please enter a username for " + netid + ".");
 			Database.logUser(netid, name, Settings.getStudentBudget());
 		}
 		Database.modifyPrint(ticket, date, netid, name, project, material, amount);
