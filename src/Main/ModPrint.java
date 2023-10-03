@@ -49,6 +49,7 @@ public class ModPrint {
 		logWindow.add(logArea);
 		
 		ticketBox = new JTextField();
+		ticketBox.addActionListener(new EnterKeyListener());
 		JButton b1 = new JButton("🔎 Search");
 		b1.addActionListener(new ButtonListener());
 		logGrid.add(new JLabel("Enter Ticket #:"));
@@ -214,6 +215,12 @@ public class ModPrint {
 			if (e.getActionCommand() == "Submit") {
 				ModPrint.submit();
 			}
+		}
+	}
+	
+	static class EnterKeyListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			ModPrint.search();
 		}
 	}
 }
