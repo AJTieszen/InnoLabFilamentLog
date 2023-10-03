@@ -18,7 +18,6 @@ public class ModPrint {
 	private static JTextField ticketBox2;
 	private static JTextField dateBox;
 	private static JTextField netIDBox;
-	private static JTextField nameBox;
 	private static JTextField projectBox;
 	private static JComboBox<String> materialBox;
 	private static JFormattedTextField amountBox;
@@ -66,10 +65,6 @@ public class ModPrint {
 		netIDBox = new JTextField();
 		logGrid2.add(new JLabel("NetID:"));
 		logGrid2.add(netIDBox);
-		
-		nameBox = new JTextField();
-		logGrid2.add(new JLabel("Requester Name:"));
-		logGrid2.add(nameBox);
 		
 		projectBox = new JTextField();
 		logGrid2.add(new JLabel("Project Name:"));
@@ -124,7 +119,6 @@ public class ModPrint {
 				ticketBox2.setText(ticket + " not found");
 				dateBox.setText("");
 				netIDBox.setText("");
-				nameBox.setText("");
 				projectBox.setText("");
 				materialBox.setSelectedIndex(0);
 				amountBox.setText("");
@@ -134,7 +128,6 @@ public class ModPrint {
 				ticketBox2.setText(ticket);
 				dateBox.setText(r.getObject("date").toString());
 				netIDBox.setText(r.getObject("netid").toString());
-				nameBox.setText(r.getObject("name").toString());
 				projectBox.setText(r.getObject("project").toString());
 				amountBox.setText(r.getObject("usage").toString());
 				
@@ -158,13 +151,13 @@ public class ModPrint {
 		String ticket = ticketBox2.getText();
 		String date = dateBox.getText();
 		String netid = netIDBox.getText();
-		String name = nameBox.getText();
 		String project = projectBox.getText();
 		String material = materialBox.getSelectedItem().toString();
 		String a = amountBox.getText();
+		String name = Database.getUserName(netid);
 		
 //		Clean up inputs
-		if (ticket.length() == 0 || date.length() == 0 || netid.length() == 0 || name.length() == 0 || project.length() == 0 || material.length() == 0 || a.length() == 0) {
+		if (ticket.length() == 0 || date.length() == 0 || netid.length() == 0 || project.length() == 0 || material.length() == 0 || a.length() == 0) {
 			JOptionPane.showMessageDialog(logWindow, "Please fill out all fields.");
 			return;
 		}
@@ -181,7 +174,8 @@ public class ModPrint {
 		int amount = Integer.parseInt(a);
 		
 //		Execute update
-		
+		Database.modifyPrint(ticket, date, netid, name, material, amount);
+		logWindow.dispose();
 	}
 	
 	static class ButtonListener implements ActionListener {

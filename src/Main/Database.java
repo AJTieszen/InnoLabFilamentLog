@@ -220,6 +220,37 @@ public class Database {
 			}				
 		}
 	}
+	public static void modifyPrint(String ticket, String date, String netid, String name, String material, int amount) {		
+		try {
+//    		Create database connection
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+	    	String connPath = "jdbc:ucanaccess://" + Settings.getFilePath() + ";singleconnection=true";
+	    	db_connection = DriverManager.getConnection(connPath);
+	    	Statement stmt = db_connection.createStatement();
+	    	
+//	    	check if user is already in database
+	    	String sql = "select * from Budgets where id = '" + netid + "'";
+	    	ResultSet result = stmt.executeQuery(sql);
+	    	boolean userExists = result.next();
+	    	
+	    	if(userExists) {
+	    		sql = "update Projects set date = '" + date + "', netid = '" + netid + "', name = '" + name + "', material = '" + material + "', usage = " + amount + " where ticket = '" + ticket + "'";
+	    		stmt.executeUpdate(sql);
+	    		refresh();
+	    	}
+	    	else {
+	    		JOptionPane.showMessageDialog(null, "User " + netid + " not found.");	    		
+	    	}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+				if (db_connection != null) db_connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}				
+		}
+	}
 	
 	public static boolean checkUserExists(String netid) {
 		boolean userExists = false;
