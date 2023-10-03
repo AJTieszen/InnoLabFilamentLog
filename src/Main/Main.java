@@ -183,7 +183,7 @@ public class Main {
 				ModUser.show();
 			}
 			if (e.getActionCommand() == "Modify Print") {
-				
+				ModPrint.show();
 			}
 			if (e.getActionCommand() == "Show / Hide NetID") {
 				Main.showHideNetID();
