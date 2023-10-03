@@ -24,6 +24,9 @@ public class ModPrint {
 	
 	private static boolean ticketFound = false;
 	
+	private static int oldUsage = 0;
+	private static String oldID;
+	
 	public static void show() {
 //		Create Border
 		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
@@ -138,6 +141,13 @@ public class ModPrint {
 					materialBox.setSelectedItem("Other");
 				}
 				
+//				Record old values to detect changes
+				oldUsage = Integer.parseInt(amountBox.getText());
+				oldID = netIDBox.getText();
+				
+				System.out.println(oldUsage);
+				System.out.println(oldID);
+				
 				ticketFound = true;
 			}
 		} catch (SQLException e) {
@@ -174,7 +184,20 @@ public class ModPrint {
 		int amount = Integer.parseInt(a);
 		
 //		Execute update
-		Database.modifyPrint(ticket, date, netid, name, material, amount);
+		Database.modifyPrint(ticket, date, netid, name, project, material, amount);
+		
+//		Update user information
+		boolean idChanged = !oldID.equalsIgnoreCase(netid);
+		boolean usageChanged = oldUsage != amount;
+		
+		if (idChanged) {
+			Database.updateUser(oldID, -1 * oldUsage, 0);
+			Database.updateUser(netid, amount, 0);
+		} else if (usageChanged) {
+			int change = amount - oldUsage;
+			Database.updateUser(netid, change, 0);
+		}
+		
 		logWindow.dispose();
 	}
 	

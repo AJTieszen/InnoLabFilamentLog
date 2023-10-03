@@ -220,7 +220,7 @@ public class Database {
 			}				
 		}
 	}
-	public static void modifyPrint(String ticket, String date, String netid, String name, String material, int amount) {		
+	public static void modifyPrint(String ticket, String date, String netid, String name, String project, String material, int amount) {		
 		try {
 //    		Create database connection
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -234,7 +234,7 @@ public class Database {
 	    	boolean userExists = result.next();
 	    	
 	    	if(userExists) {
-	    		sql = "update Projects set date = '" + date + "', netid = '" + netid + "', name = '" + name + "', material = '" + material + "', usage = " + amount + " where ticket = '" + ticket + "'";
+	    		sql = "update Projects set date = '" + date + "', netid = '" + netid + "', name = '" + name + "', project = '" + project + "', material = '" + material + "', usage = " + amount + " where ticket = '" + ticket + "'";
 	    		stmt.executeUpdate(sql);
 	    		refresh();
 	    	}
