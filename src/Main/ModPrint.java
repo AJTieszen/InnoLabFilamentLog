@@ -164,7 +164,6 @@ public class ModPrint {
 		String project = projectBox.getText();
 		String material = materialBox.getSelectedItem().toString();
 		String a = amountBox.getText();
-		String name = Database.getUserName(netid);
 		
 //		Clean up inputs
 		if (ticket.length() == 0 || date.length() == 0 || netid.length() == 0 || project.length() == 0 || material.length() == 0 || a.length() == 0) {
@@ -184,6 +183,7 @@ public class ModPrint {
 		int amount = Integer.parseInt(a);
 		
 //		Execute update
+		String name = Database.getUserName(netid);
 		Database.modifyPrint(ticket, date, netid, name, project, material, amount);
 		
 //		Update user information
