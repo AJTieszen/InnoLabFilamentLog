@@ -205,6 +205,8 @@ public class Database {
 	    	if(userExists) {
 	    		sql = "update Budgets set name = '" + name + "', usage = " + usage + ", brought = " + brought + ", remaining = " + remaining + " where id = '" + netid + "'";
 	    		stmt.executeUpdate(sql);
+	    		sql = "update Projects set name = '" + name + "' where netid = '" + netid + "'";
+	    		stmt.executeUpdate(sql);
 	    		refresh();
 	    	}
 	    	else {
