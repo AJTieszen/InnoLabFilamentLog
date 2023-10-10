@@ -26,8 +26,8 @@ import javax.swing.border.Border;
 public class Main {
 	public static final int FRAME_WIDTH = 1366;
 	public static final int FRAME_HEIGHT = 768;
-	public static final int MIN_FRAME_WIDTH = 640;
-	public static final int MIN_FRAME_HEIGHT = 480;
+	public static final int MIN_FRAME_WIDTH = 853;
+	public static final int MIN_FRAME_HEIGHT = 640;
 	public static final int L_PANEL_WIDTH = 250;
 	
 	public static final JFrame mainWindow = new JFrame("Innovation Lab Print Log");
@@ -95,7 +95,7 @@ public class Main {
 		leftPanel.add(centerImage);
 
 //		Create Button Panel
-		String[] labels = {"Log new print", "Log Filament Brought", "Show / Hide NetID", "Modify User", "Modify Print", "Refresh database", "⚙ Local settings"};
+		String[] labels = {"Log new print", "Log Filament Brought", "Show / Hide NetID", "Modify User", "Modify Print", "Refresh database", "🔎 Search", "⚙ Local settings"};
 		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1));
 		for(String label : labels) {
 			JButton btn = new JButton(label);
@@ -187,6 +187,9 @@ public class Main {
 			}
 			if (e.getActionCommand() == "Show / Hide NetID") {
 				Main.showHideNetID();
+			}
+			if (e.getActionCommand() == "🔎 Search") {
+				Search.show();
 			}
 			if (e.getActionCommand() == "⚙ Local settings") {
 				Settings.show();
