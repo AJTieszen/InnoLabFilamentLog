@@ -81,9 +81,13 @@ public class BroughtFilament {
 		}
 		
 		int amount = Integer.parseInt(amt);
-		netid.replace('c', 'C');
-		if (netid.charAt(0) != 'C') {
+		if (netid.charAt(0) == 'c')
+			netid = netid.substring(1);
+		if (netid.charAt(0) != 'C')
 			netid = "C" + netid;
+		if (!Database.checkUserExists(netid)) {
+			JOptionPane.showMessageDialog(logWindow, "User " + netid + " not found.");
+			return;
 		}
 		
 		Database.updateUser(netid, 0, amount);
