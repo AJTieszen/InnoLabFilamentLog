@@ -45,7 +45,8 @@ public class ModUser {
 		logWindow.add(logArea);
 		
 		idBox = new JTextField();
-		idBox.addActionListener(new EnterKeyListener());
+		idBox.setActionCommand("🔎 Search");
+		idBox.addActionListener(new ButtonListener());
 		JButton b1 = new JButton("🔎 Search");
 		b1.addActionListener(new ButtonListener());
 		logGrid.add(new JLabel("Enter NetID:"));
@@ -77,6 +78,8 @@ public class ModUser {
 		remainingBox = new JFormattedTextField(formatter);
 		logGrid2.add(new JLabel("Filament Remaining:"));
 		logGrid2.add(remainingBox);
+		remainingBox.setActionCommand("Submit");
+		remainingBox.addActionListener(new ButtonListener());
 		logGrid2.setBorder(bottomBorder);
 		
 //		Create submit button
@@ -170,12 +173,6 @@ public class ModUser {
 			if (e.getActionCommand() == "Submit") {
 				ModUser.submit();
 			}
-		}
-	}
-	
-	static class EnterKeyListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			ModUser.search();
 		}
 	}
 }

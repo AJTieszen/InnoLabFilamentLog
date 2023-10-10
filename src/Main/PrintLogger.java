@@ -92,6 +92,8 @@ public class PrintLogger {
 		formatter.setMaximum(999999999);
 		amountBox = new JFormattedTextField(formatter);
 		logGrid.add(new JLabel("Amount (g):"));
+		amountBox.setActionCommand("Submit");
+		amountBox.addActionListener(bl);
 		logGrid.add(amountBox);
 		
 		courseIDLabel = new JLabel("Course or Organization ID:");
@@ -102,6 +104,8 @@ public class PrintLogger {
 		formatter.setMinimum(1);
 		formatter.setMaximum(999);
 		participantBox = new JFormattedTextField(formatter);
+		participantBox.setActionCommand("Submit");
+		participantBox.addActionListener(bl);
 		
 		logPanel.add(logGrid);
 		logWindow.add(logPanel, BorderLayout.CENTER);
