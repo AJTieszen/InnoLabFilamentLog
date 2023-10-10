@@ -62,7 +62,15 @@ public class Database {
 		}
 	}
 	public static void logPrint(String date, String netid, String name, String project, String ticket, int usage, String material) {
-    	try {
+//    	Truncate string inputs
+		date = truncate(date, 10);
+		netid = truncate(netid, 10);
+		name = truncate(name, 60);
+		project = truncate(project, 20);
+		ticket = truncate(ticket, 15);
+		material = truncate(material, 5);
+		
+		try {
 //    		Create database connection
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 	    	String connPath = "jdbc:ucanaccess://" + Settings.getFilePath() + ";singleconnection=true";
@@ -105,6 +113,9 @@ public class Database {
 		}
 	}
 	public static void logUser(String netid, String name, int limit) {
+//		Truncate string inputs
+		netid = truncate(netid, 10);
+		
 //		Calculate fields
 		int usage = 0;
 		int brought = 0;
@@ -190,6 +201,9 @@ public class Database {
 		}
 	}
 	public static void modifyUser(String netid, String name, int usage, int brought, int remaining) {		
+//		Truncate string inputs
+		name = truncate(name, 60);
+		
 		try {
 //    		Create database connection
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -223,6 +237,14 @@ public class Database {
 		}
 	}
 	public static void modifyPrint(String ticket, String date, String netid, String name, String project, String material, int amount) {		
+//		Truncate string inputs
+		ticket = truncate(ticket, 15);
+		date = truncate(date, 10);
+		netid = truncate(netid, 10);
+		name = truncate(name, 60);
+		project = truncate(project, 20);
+		material = truncate(material, 5);
+		
 		try {
 //    		Create database connection
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -404,6 +426,13 @@ public class Database {
 		}
 		
 		return result;
+	}
+	
+	public static String truncate(String s, int l) {
+		if (s.length() > l - 1) {
+			s = s.substring(0, l - 1);
+		}
+		return s;
 	}
 }
 
