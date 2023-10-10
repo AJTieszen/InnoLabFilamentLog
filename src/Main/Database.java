@@ -429,8 +429,8 @@ public class Database {
 	}
 	
 	public static String truncate(String s, int l) {
-		if (s.length() > l - 1) {
-			s = s.substring(0, l - 1);
+		if (s.length() > l) {
+			s = s.substring(0, l);
 		}
 		return s;
 	}

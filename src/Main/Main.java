@@ -26,8 +26,8 @@ import javax.swing.border.Border;
 public class Main {
 	public static final int FRAME_WIDTH = 1366;
 	public static final int FRAME_HEIGHT = 768;
-	public static final int MIN_FRAME_WIDTH = 640;
-	public static final int MIN_FRAME_HEIGHT = 480;
+	public static final int MIN_FRAME_WIDTH = 853;
+	public static final int MIN_FRAME_HEIGHT = 640;
 	public static final int L_PANEL_WIDTH = 250;
 	
 	public static final JFrame mainWindow = new JFrame("Innovation Lab Print Log");
