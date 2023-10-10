@@ -49,7 +49,8 @@ public class ModPrint {
 		logWindow.add(logArea);
 		
 		ticketBox = new JTextField();
-		ticketBox.addActionListener(new EnterKeyListener());
+		ticketBox.setActionCommand("🔎 Search");
+		ticketBox.addActionListener(new ButtonListener());
 		JButton b1 = new JButton("🔎 Search");
 		b1.addActionListener(new ButtonListener());
 		logGrid.add(new JLabel("Enter Ticket #:"));
@@ -85,6 +86,8 @@ public class ModPrint {
 		formatter.setMaximum(999999999);
 		amountBox = new JFormattedTextField(formatter);
 		logGrid2.add(new JLabel("Amount (g):"));
+		amountBox.setActionCommand("Submit");
+		amountBox.addActionListener(new ButtonListener());
 		logGrid2.add(amountBox);
 		logGrid2.setBorder(bottomBorder);
 		
@@ -215,12 +218,6 @@ public class ModPrint {
 			if (e.getActionCommand() == "Submit") {
 				ModPrint.submit();
 			}
-		}
-	}
-	
-	static class EnterKeyListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			ModPrint.search();
 		}
 	}
 }
