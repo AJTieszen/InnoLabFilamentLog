@@ -2,6 +2,9 @@ package Main;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -30,7 +33,7 @@ public class Search {
 		JPanel searchBar = new JPanel();
 		searchBar.setLayout(new BoxLayout(searchBar, BoxLayout.X_AXIS));
 		searchBar.setBorder(bottomBorder);
-		String[] fields = {"Name: ", "NetID: ", "Project: ", "Ticket #: ", "Course: ", "Date: ", "Material: "};
+		String[] fields = {"Name: ", "NetID: ", "Project: ", "Ticket: ", "Date: ", "Material: "};
 		fieldBox = new JComboBox<String> (fields);
 		searchBar.add(fieldBox);
 		
@@ -53,6 +56,7 @@ public class Search {
 		
 		students = new JTable(new BudgetTableModel());
 		projects = new JTable(new ProjectTableModel());
+		students.setBorder(bottomBorder);
 		
 		centerTitles[0].add(new JLabel("Students and Courses:"));
 		tablePanel.add(centerTitles[0]);
@@ -76,8 +80,36 @@ public class Search {
 	}
 	
 	private static void search() {
-		String field = fieldBox.getSelectedItem().toString();
+//		Read search term and target column
+		String field = fieldBox.getSelectedItem().toString().replace(":", "").replace(" ", "");
 		String term = searchBox.getText();
+		
+//		Clear tables
+		students.setModel(new BudgetTableModel());
+		projects.setModel(new ProjectTableModel());
+		
+//		Search database
+		ResultSet studentResults = null;
+		ResultSet projectResults = null;
+		
+		projectResults = Database.searchPartial(term, field, "Projects");
+		if (field.equalsIgnoreCase("netid"))
+			field = "id";
+		if (field.equalsIgnoreCase("id") || field.equalsIgnoreCase("name"))
+			studentResults = Database.searchPartial(term, field, "Budgets");
+		
+		try {
+			while(studentResults.next()) {
+				int row = students.getRowCount();
+				students.setValueAt(studentResults.getObject("id"), row, 0);
+				students.setValueAt(studentResults.getObject("name"), row, 1);
+				students.setValueAt(studentResults.getObject("usage"), row, 2);
+				students.setValueAt(studentResults.getObject("brought"), row, 3);
+				students.setValueAt(studentResults.getObject("remaining"), row, 4);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	static class ButtonListener implements ActionListener {
