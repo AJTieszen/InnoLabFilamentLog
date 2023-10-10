@@ -150,7 +150,8 @@ public class PrintLogger {
 		}
 		
 		int amount = Integer.parseInt(amt);
-		netid.replace('c', 'C');
+		if (netid.charAt(0) == 'c')
+			netid = netid.substring(1);
 		if (netid.charAt(0) != 'C') {
 			netid = "C" + netid;
 		}

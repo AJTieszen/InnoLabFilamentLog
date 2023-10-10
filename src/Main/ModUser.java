@@ -106,10 +106,10 @@ public class ModUser {
 			JOptionPane.showMessageDialog(logWindow, "Please enter a valid NetID to search for.");
 			return;
 		}
-		netid.replace('c', 'C');
-		if (netid.charAt(0) != 'C') {
+		if (netid.charAt(0) == 'c')
+			netid = netid.substring(1);
+		if (netid.charAt(0) != 'C')
 			netid = "C" + netid;
-		}
 		
 //		Search database for netid
 		ResultSet r = Database.search(netid, "id", "Budgets");
