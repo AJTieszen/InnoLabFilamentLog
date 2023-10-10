@@ -130,8 +130,8 @@ public class PrintLogger {
 		
 //		Read input values
 		String date = dateBox.getText();
-		String netid = idBox.getText();
-		String name = nameBox.getText();
+		String netid = Database.truncate(idBox.getText(), 10);
+		String name = Database.truncate(nameBox.getText(), 60);
 		String project = projectBox.getText();
 		String ticket = ticketBox.getText();
 		String material = materialBox.getSelectedItem().toString();
