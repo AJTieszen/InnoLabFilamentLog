@@ -62,6 +62,7 @@ public class Search {
 		tablePanel.add(centerTitles[0]);
 		tablePanel.add(students.getTableHeader());
 		tablePanel.add(students);
+		tablePanel.add(new JLabel(" "));
 		centerTitles[1].add(new JLabel("Projects:"));
 		tablePanel.add(centerTitles[1]);
 		tablePanel.add(projects.getTableHeader());
@@ -98,14 +99,25 @@ public class Search {
 		if (field.equalsIgnoreCase("id") || field.equalsIgnoreCase("name"))
 			studentResults = Database.searchPartial(term, field, "Budgets");
 		
+//		Display search results
 		try {
-			while(studentResults.next()) {
+			while(studentResults != null && studentResults.next()) {
 				int row = students.getRowCount();
 				students.setValueAt(studentResults.getObject("id"), row, 0);
 				students.setValueAt(studentResults.getObject("name"), row, 1);
 				students.setValueAt(studentResults.getObject("usage"), row, 2);
 				students.setValueAt(studentResults.getObject("brought"), row, 3);
 				students.setValueAt(studentResults.getObject("remaining"), row, 4);
+			}
+			while(projectResults != null && projectResults.next()) {
+				int row = projects.getRowCount();
+				projects.setValueAt(projectResults.getObject("date"), row, 0);
+				projects.setValueAt(projectResults.getObject("netid"), row, 1);
+				projects.setValueAt(projectResults.getObject("name"), row, 2);
+				projects.setValueAt(projectResults.getObject("project"), row, 3);
+				projects.setValueAt(projectResults.getObject("ticket"), row, 4);
+				projects.setValueAt(projectResults.getObject("usage"), row, 5);
+				projects.setValueAt(projectResults.getObject("material"), row, 6);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
