@@ -47,6 +47,8 @@ public class BroughtFilament {
 		formatter.setMaximum(999999999);
 		amountBox = new JFormattedTextField(formatter);
 		logGrid.add(new JLabel("Amount Brought (g):"));
+		amountBox.setActionCommand("Submit");
+		amountBox.addActionListener(new ButtonListener());
 		logGrid.add(amountBox);
 		logGrid.setBorder(bottomBorder);
 		
