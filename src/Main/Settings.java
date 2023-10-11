@@ -106,20 +106,7 @@ public class Settings {
 		course_budget = cbudget;
 		course_per_stud = cpbudget;
 		
-//		Write settings to file
-		try {
-			FileWriter writer = new FileWriter(Main.initFile.getPath());
-			writer.write("File Path:\n");
-			writer.write("Database directory        = " + db_directory + "\n");
-			writer.write("Database filename         = " + db_file + "\n");
-			writer.write("Filament Allocations:\n");
-			writer.write("Student Budget (g)        = " + student_budget + "\n");
-			writer.write("Class Budget (g)          = " + course_budget + "\n");
-			writer.write("Class Budget Per Student  = " + course_per_stud + "\n");
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		writeFile();
 		
 //		Close window
 		settingsEditor.dispose();
@@ -180,45 +167,65 @@ public class Settings {
 			Settings.show();
 		}
 	}
+	public static void writeFile() {
+//		Write settings to file
+		try {
+			FileWriter writer = new FileWriter(Main.initFile.getPath());
+			writer.write("File Path:\n");
+			writer.write("Database directory        = " + db_directory + "\n");
+			writer.write("Database filename         = " + db_file + "\n");
+			writer.write("Filament Allocations:\n");
+			writer.write("Student Budget (g)        = " + student_budget + "\n");
+			writer.write("Class Budget (g)          = " + course_budget + "\n");
+			writer.write("Class Budget Per Student  = " + course_per_stud + "\n");
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static String getFilePath() {
 		return db_directory + "/" + db_file;
 	}
-	
 	public static String getDirectory() {
 		return db_directory;
 	}
-	
 	public static String getFileName() {
 		return db_file;
 	}
-	
 	public static int getStudentBudget() {
 		return student_budget;
 	}
-	
 	public static int getCourseBudget() {
 		return course_budget;
 	}
-	
 	public static int getCoursePerStud() {
 		return course_per_stud;
 	}
-	
+
 	public static void setDbDirectory(String dir) {
 		db_directory = dir;
 	}
-	
 	public static void setDbFile(String file) {
 		db_file = file;
 	}
-	
 	public static void setStudentBudget(int budget) {
 		student_budget = budget;
 	}
-	
 	public static void setCourseBudget(int budget) {
 		course_budget = budget;
+	}
+	
+	public static void createNewDatabase() {
+		String newFilename = JOptionPane.showInputDialog("Enter new filename: ");
+		if(newFilename.length() < 6 || !newFilename.substring(newFilename.length() - 6).equalsIgnoreCase(".accdb"))
+			newFilename += ".accdb";
+		System.out.println(newFilename);
+		setDbFile(newFilename);
+		
+		Database.setup();
+		Database.refresh();
+		writeFile();
 	}
 	
 	static class ButtonListener implements ActionListener {

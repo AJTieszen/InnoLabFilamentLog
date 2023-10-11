@@ -95,7 +95,7 @@ public class Main {
 		leftPanel.add(centerImage);
 
 //		Create Button Panel
-		String[] labels = {"Log new print", "Log Filament Brought", "Show / Hide NetID", "Modify User", "Modify Print", "Refresh database", "🔎 Search", "⚙ Local settings"};
+		String[] labels = {"Log new print", "Log filament brought", "Show / hide NetID", "Modify user", "Modify print", "Refresh database", "New database", "🔎 Search", "⚙ Local settings"};
 		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1));
 		for(String label : labels) {
 			JButton btn = new JButton(label);
@@ -167,26 +167,28 @@ public class Main {
 		}
 	}
 
-	
-	static class ButtonListener implements ActionListener {		
+ 	static class ButtonListener implements ActionListener {		
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand() == "Log new print") {
 				PrintLogger.show();
 			}
+			if (e.getActionCommand() == "Log filament brought") {
+				BroughtFilament.show();
+			}
+			if (e.getActionCommand() == "Modify user") {
+				ModUser.show();
+			}
+			if (e.getActionCommand() == "Modify print") {
+				ModPrint.show();
+			}
+			if (e.getActionCommand() == "Show / hide NetID") {
+				Main.showHideNetID();
+			}
 			if (e.getActionCommand() == "Refresh database") {
 				Database.refresh();
 			}
-			if (e.getActionCommand() == "Log Filament Brought") {
-				BroughtFilament.show();
-			}
-			if (e.getActionCommand() == "Modify User") {
-				ModUser.show();
-			}
-			if (e.getActionCommand() == "Modify Print") {
-				ModPrint.show();
-			}
-			if (e.getActionCommand() == "Show / Hide NetID") {
-				Main.showHideNetID();
+			if (e.getActionCommand() == "New database") {
+				Settings.createNewDatabase();
 			}
 			if (e.getActionCommand() == "🔎 Search") {
 				Search.show();
