@@ -15,6 +15,8 @@ public class Search {
 	private static JComboBox<String> fieldBox;
 	private static JTable students;
 	private static JTable projects;
+	private static JPanel[] centerTitles = {new JPanel(), new JPanel()};
+	private static JPanel tablePanel;
 	
 	public static void show() {
 //		Create Border
@@ -48,9 +50,8 @@ public class Search {
 		searchWindow.add(searchBar, BorderLayout.NORTH);
 		
 //		Create output tables
-		JPanel tablePanel = new JPanel();
+		tablePanel = new JPanel();
 		tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
-		JPanel[] centerTitles = {new JPanel(), new JPanel()};
 		centerTitles[0].setLayout(new BoxLayout(centerTitles[0], BoxLayout.X_AXIS));
 		centerTitles[1].setLayout(new BoxLayout(centerTitles[1], BoxLayout.X_AXIS));
 		
@@ -62,7 +63,8 @@ public class Search {
 		tablePanel.add(centerTitles[0]);
 		tablePanel.add(students.getTableHeader());
 		tablePanel.add(students);
-		tablePanel.add(new JLabel(" "));
+		
+		tablePanel.add(new JSeparator());
 		centerTitles[1].add(new JLabel("Projects:"));
 		tablePanel.add(centerTitles[1]);
 		tablePanel.add(projects.getTableHeader());
@@ -86,8 +88,15 @@ public class Search {
 		String term = searchBox.getText();
 		
 //		Clear tables
-		students.setModel(new BudgetTableModel());
-		projects.setModel(new ProjectTableModel());
+		tablePanel.removeAll();
+		students = new JTable(new BudgetTableModel());
+		projects = new JTable(new ProjectTableModel());
+		tablePanel.add(centerTitles[0]);
+		tablePanel.add(students.getTableHeader());
+		tablePanel.add(students);
+		tablePanel.add(centerTitles[1]);
+		tablePanel.add(projects.getTableHeader());
+		tablePanel.add(projects);		
 		
 //		Search database
 		ResultSet studentResults = null;
@@ -119,6 +128,10 @@ public class Search {
 				projects.setValueAt(projectResults.getObject("usage"), row, 5);
 				projects.setValueAt(projectResults.getObject("material"), row, 6);
 			}
+
+			projects.setAutoCreateRowSorter(true);
+			students.setAutoCreateRowSorter(true);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
