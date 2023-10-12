@@ -45,7 +45,7 @@ public class PrepWorkshop {
 		formatter.setMinimum(0);
 		formatter.setMaximum(999999999);
 		participantsBox = new JFormattedTextField(formatter);
-		logArea.add(new JLabel("Amount (g):"));
+		logArea.add(new JLabel("Expected Participants:"));
 		participantsBox.setActionCommand("Submit");
 		participantsBox.addActionListener(new ButtonListener());
 		logArea.add(participantsBox);
@@ -63,11 +63,28 @@ public class PrepWorkshop {
 		logWindow.setVisible(true);
 		logWindow.setMinimumSize(logWindow.getSize());
 		logWindow.setLocation(new Point(Main.mainWindow.getLocation().x + (Main.mainWindow.getWidth() - logWindow.getWidth()) / 2, Main.mainWindow.getLocation().y + (Main.mainWindow.getHeight() - logWindow.getHeight()) / 2));
-		
 	}
 
 	public static void submit() {
+		String name = nameBox.getText();
+		String id = idBox.getText();
+		String participants = participantsBox.getText();
 		
+//		Clean up inputs
+		if (name.length() == 0 || id.length() == 0 || participants.length() == 0) {
+			JOptionPane.showMessageDialog(logWindow, "Please fill out all fields.");
+			return;
+		}
+
+		if (id.charAt(0) == 'c')
+			id = id.substring(1);
+		if (id.charAt(0) != 'C')
+			id = "C" + id;
+		
+		int parts = Integer.parseInt(participants);
+		int budget = Math.min(parts * Settings.getCoursePerStud(), Settings.getCourseBudget());
+		
+		Database.logUser(id, name, budget);
 	}
 	
 	static class ButtonListener implements ActionListener {
