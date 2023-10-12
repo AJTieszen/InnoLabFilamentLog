@@ -158,7 +158,6 @@ public class ModPrint {
 			e.printStackTrace();
 		}
 	}
-	
 	private static void submit() {
 //		Read input values
 		if (!ticketFound) return;
