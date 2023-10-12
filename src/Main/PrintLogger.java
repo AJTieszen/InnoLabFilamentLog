@@ -101,6 +101,7 @@ public class PrintLogger {
 		courseLabel = new JLabel("Course or Organization Name:");
 		courseBox = new JTextField();
 		participantLabel = new JLabel("Expected Participants:");
+		formatter = new NumberFormatter(fmt);
 		formatter.setMinimum(1);
 		formatter.setMaximum(999);
 		participantBox = new JFormattedTextField(formatter);
