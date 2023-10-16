@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/test.accdb</name>
-			<type>1</type>
-			<locationURI>PARENT-3-PROJECT_LOC/test/test.accdb</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
