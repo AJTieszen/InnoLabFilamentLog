@@ -17,15 +17,15 @@ public class Settings {
 	private static Integer student_budget = 500;
 	private static Integer course_budget = 3000;
 	private static Integer course_per_stud = 200;
-	
-	private static Boolean darkMode = true;
+	private static String colors = "Dark";
+	private static String oldColors = "Dark";
 
 	private static JTextField fileDir;
 	private static JTextField fileName;
 	private static JTextField studentBudget;
 	private static JTextField courseBudget;
 	private static JTextField coursePerStud;
-	private static JCheckBox darkModeStatus;
+	private static JComboBox<String> colorScheme;
 	
 	private static JFrame settingsEditor = new JFrame("Settings");
 	
@@ -46,7 +46,8 @@ public class Settings {
 		studentBudget.setPreferredSize(new Dimension(175, 25));
 		courseBudget = new JTextField(course_budget.toString());
 		coursePerStud = new JTextField(course_per_stud.toString());
-		darkModeStatus = new JCheckBox();
+		String[] schemes = {"Light", "Dark"};
+		colorScheme = new JComboBox<String>(schemes);
 		
 //		Create main section
 		JPanel settingsArea = new JPanel();
@@ -75,8 +76,7 @@ public class Settings {
 		JPanel title3 = new JPanel(new FlowLayout());
 		title3.add(new JLabel("Program Appearance:"));
 		settingsGrid3.add(new JLabel("Dark Mode:"));
-		darkModeStatus.setSelected(getDarkMode());
-		settingsGrid3.add(darkModeStatus);
+		settingsGrid3.add(colorScheme);
 
 		settingsArea.add(title1);
 		settingsArea.add(settingsGrid1);
@@ -108,7 +108,8 @@ public class Settings {
 		String sb = studentBudget.getText();
 		String cb = courseBudget.getText();
 		String cbp = coursePerStud.getText();
-		boolean dm = darkModeStatus.isSelected();
+		String clr = colorScheme.getSelectedItem().toString();
+		System.out.println(clr);
 		int sbudget = Integer.parseInt(sb);
 		int cbudget = Integer.parseInt(cb);
 		int cpbudget = Integer.parseInt(cbp);
@@ -119,13 +120,19 @@ public class Settings {
 		student_budget = sbudget;
 		course_budget = cbudget;
 		course_per_stud = cpbudget;
-		darkMode = dm;
+		oldColors = colors;
+		colors = clr;
+		
+		System.out.println(oldColors + " | " + colors);
 		
 		writeFile();
 		
 //		Close window
 		settingsEditor.dispose();
 		Main.statMessage.setText("OK");
+		
+		if (!oldColors.equals(colors))
+			Main.refreshWindow();
 	}
 	
 	public static void readFromFile() {
@@ -181,7 +188,7 @@ public class Settings {
 			lineScanner = new Scanner(line);
 			lineScanner.useDelimiter("= ");
 			lineScanner.next();
-			darkMode = Boolean.parseBoolean(lineScanner.next());
+			colors = lineScanner.next();
 			lineScanner.close();
 			
 			scanner.close();
@@ -201,7 +208,7 @@ public class Settings {
 			writer.write("Student Budget (g)        = " + student_budget + "\n");
 			writer.write("Class Budget (g)          = " + course_budget + "\n");
 			writer.write("Class Budget Per Student  = " + course_per_stud + "\n");
-			writer.write("Dark Mode                 = " + darkMode + "\n");
+			writer.write("Color Scheme				= " + colors + "\n");
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -226,8 +233,8 @@ public class Settings {
 	public static int getCoursePerStud() {
 		return course_per_stud;
 	}
-	public static boolean getDarkMode() {
-		return darkMode;
+	public static String getColorScheme() {
+		return colors;
 	}
 	
 	public static void setDbDirectory(String dir) {

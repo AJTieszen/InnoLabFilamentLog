@@ -30,14 +30,14 @@ public class Main {
 	public static final int MIN_FRAME_HEIGHT = 640;
 	public static final int L_PANEL_WIDTH = 250;
 	
-	public static Color bg = Color.BLACK;
-	public static Color mg = Color.LIGHT_GRAY;
+	public static Color bg = Color.DARK_GRAY;
+	public static Color accent = Color.BLACK;
 	public static Color fg = Color.WHITE;
 	
 	public static JFrame mainWindow;
 
-	public static final ImageIcon innoLabIcon = new ImageIcon("InnovationLabLogo.png");
-	public static final ImageIcon printerIcon = new ImageIcon("Ender3Logo.png");
+	public static ImageIcon innoLabIcon;
+	public static ImageIcon printerIcon;
 	
 	public static JTable projectTable = new JTable(new ProjectTableModel());
 	public static JTable budgetTable = new JTable(new BudgetTableModel());
@@ -65,22 +65,15 @@ public class Main {
 	}
 	
 	public static void createLayout() {
-//		Setup color scheme		
-		if (Settings.getDarkMode()) {
-			bg = Color.DARK_GRAY;
-			mg = Color.BLACK;
-			fg = Color.WHITE;
-		} else {
-			bg = Color.WHITE;
-			mg = Color.LIGHT_GRAY;
-			fg = Color.BLACK;
-		}
-		
 //		Set up border
 		Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, fg);
 		Border rightBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, fg);
 		
+//		Set color scheme
+		setColorScheme(Settings.getColorScheme());
+		
 //		Create main window
+		printerIcon = new ImageIcon("Ender3Logo.png");
 		mainWindow = new JFrame("Innovation Lab Print Log");
 		mainWindow.setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		mainWindow.setLocation(new Point((Toolkit.getDefaultToolkit().getScreenSize().width - mainWindow.getWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - mainWindow.getHeight()) / 2));
@@ -113,6 +106,7 @@ public class Main {
 		leftPanel.setBorder(rightBorder);
 		mainWindow.add(leftPanel, BorderLayout.WEST);
 		
+		innoLabIcon = new ImageIcon("InnovationLabLogo.png");
 		JLabel img = new JLabel(innoLabIcon);
 		JPanel centerImage = new JPanel(new FlowLayout());
 		centerImage.setBackground(bg);
@@ -126,7 +120,7 @@ public class Main {
 			JButton btn = new JButton(label);
 			btn.setVisible(true);
 			btn.addActionListener(new ButtonListener());
-			btn.setBackground(bg);
+			btn.setBackground(accent);
 			btn.setForeground(fg);
 			buttonPanel.add(btn);
 		}
@@ -154,7 +148,7 @@ public class Main {
 		projectTable.setBackground(bg);
 		projectTable.setForeground(fg);
 		projectTable.setGridColor(fg);
-		projectTable.getTableHeader().setBackground(mg);
+		projectTable.getTableHeader().setBackground(accent);
 		projectTable.getTableHeader().setForeground(fg);
 		JScrollPane projectScrollPane = new JScrollPane(projectTable);
 		projectScrollPane.setMinimumSize(new Dimension(250, 100));
@@ -179,7 +173,7 @@ public class Main {
 		budgetTable.setBackground(bg);
 		budgetTable.setForeground(fg);
 		budgetTable.setGridColor(fg);
-		budgetTable.getTableHeader().setBackground(mg);
+		budgetTable.getTableHeader().setBackground(accent);
 		budgetTable.getTableHeader().setForeground(fg);
 		JScrollPane budgetScrollPane = new JScrollPane(budgetTable);
 		budgetScrollPane.setMinimumSize(new Dimension(250, 100));
@@ -210,6 +204,22 @@ public class Main {
 			budgetTable.getColumnModel().getColumn(0).setPreferredWidth(budgetTable.getWidth() / (budgetTable.getColumnCount() + 1));
 			
 			showNetID = true;
+		}
+	}
+	public static void refreshWindow() {
+		mainWindow.dispose();
+		createLayout();
+	}
+	private static void setColorScheme(String scheme) {
+		System.out.println(scheme);
+		if (scheme.equalsIgnoreCase("Dark")) {
+			bg = Color.DARK_GRAY;
+			accent = Color.BLACK;
+			fg = Color.WHITE;
+		} else if (scheme.equalsIgnoreCase("Light")) {
+			bg = Color.WHITE;
+			accent = Color.LIGHT_GRAY;
+			fg = Color.BLACK;
 		}
 	}
 	
