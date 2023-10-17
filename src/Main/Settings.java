@@ -17,12 +17,15 @@ public class Settings {
 	private static Integer student_budget = 500;
 	private static Integer course_budget = 3000;
 	private static Integer course_per_stud = 200;
+	
+	private static Boolean darkMode = true;
 
 	private static JTextField fileDir;
 	private static JTextField fileName;
 	private static JTextField studentBudget;
 	private static JTextField courseBudget;
 	private static JTextField coursePerStud;
+	private static JCheckBox darkModeStatus;
 	
 	private static JFrame settingsEditor = new JFrame("Settings");
 	
@@ -43,6 +46,7 @@ public class Settings {
 		studentBudget.setPreferredSize(new Dimension(175, 25));
 		courseBudget = new JTextField(course_budget.toString());
 		coursePerStud = new JTextField(course_per_stud.toString());
+		darkModeStatus = new JCheckBox();
 		
 //		Create main section
 		JPanel settingsArea = new JPanel();
@@ -66,11 +70,20 @@ public class Settings {
 		settingsGrid2.add(courseBudget);
 		settingsGrid2.add(new JLabel("Class Budget Per Student:"));
 		settingsGrid2.add(coursePerStud);
+		
+		JPanel settingsGrid3 = new JPanel(new GridLayout(0, 2, 20, 2));
+		JPanel title3 = new JPanel(new FlowLayout());
+		title3.add(new JLabel("Program Appearance:"));
+		settingsGrid3.add(new JLabel("Dark Mode:"));
+		darkModeStatus.setSelected(getDarkMode());
+		settingsGrid3.add(darkModeStatus);
 
 		settingsArea.add(title1);
 		settingsArea.add(settingsGrid1);
 		settingsArea.add(title2);
 		settingsArea.add(settingsGrid2);
+		settingsArea.add(title3);
+		settingsArea.add(settingsGrid3);
 		settingsArea.setBorder(bottomBorder);
 		
 		settingsEditor.add(settingsArea, BorderLayout.CENTER);
@@ -95,6 +108,7 @@ public class Settings {
 		String sb = studentBudget.getText();
 		String cb = courseBudget.getText();
 		String cbp = coursePerStud.getText();
+		boolean dm = darkModeStatus.isSelected();
 		int sbudget = Integer.parseInt(sb);
 		int cbudget = Integer.parseInt(cb);
 		int cpbudget = Integer.parseInt(cbp);
@@ -105,6 +119,7 @@ public class Settings {
 		student_budget = sbudget;
 		course_budget = cbudget;
 		course_per_stud = cpbudget;
+		darkMode = dm;
 		
 		writeFile();
 		
@@ -161,6 +176,14 @@ public class Settings {
 			course_per_stud = Integer.parseInt(lineScanner.next());
 			lineScanner.close();
 			
+//			Read darkmode status
+			line = scanner.nextLine();
+			lineScanner = new Scanner(line);
+			lineScanner.useDelimiter("= ");
+			lineScanner.next();
+			darkMode = Boolean.parseBoolean(lineScanner.next());
+			lineScanner.close();
+			
 			scanner.close();
 		} catch(Exception e) {
 			Main.statMessage.setText("Init file format not recognized. Recreating...");
@@ -178,6 +201,7 @@ public class Settings {
 			writer.write("Student Budget (g)        = " + student_budget + "\n");
 			writer.write("Class Budget (g)          = " + course_budget + "\n");
 			writer.write("Class Budget Per Student  = " + course_per_stud + "\n");
+			writer.write("Dark Mode                 = " + darkMode + "\n");
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -202,7 +226,10 @@ public class Settings {
 	public static int getCoursePerStud() {
 		return course_per_stud;
 	}
-
+	public static boolean getDarkMode() {
+		return darkMode;
+	}
+	
 	public static void setDbDirectory(String dir) {
 		db_directory = dir;
 	}
