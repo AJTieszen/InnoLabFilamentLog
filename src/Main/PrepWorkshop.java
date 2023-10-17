@@ -9,8 +9,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.text.NumberFormatter;
 
-import Main.ModPrint.ButtonListener;
-
 public class PrepWorkshop {
 	private static JFrame logWindow;
 	private static JTextField nameBox;

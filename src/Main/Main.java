@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
@@ -47,7 +48,11 @@ public class Main {
 	
 	public static final File initFile = new File("3D Print Log.ini");	
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
+		statMessage = new JLabel("Starting up");
+		printerIcon = new ImageIcon("Ender3Logo.png");
+		mainWindow = new JFrame("Innovation Lab Print Log");
+		
 //		Load Program Settings
 		if (initFile.exists() && !initFile.isDirectory()) {
 			Settings.readFromFile();
@@ -73,8 +78,6 @@ public class Main {
 		Border rightBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, fg);
 		
 //		Create main window
-		printerIcon = new ImageIcon("Ender3Logo.png");
-		mainWindow = new JFrame("Innovation Lab Print Log");
 		mainWindow.setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		mainWindow.setLocation(new Point((Toolkit.getDefaultToolkit().getScreenSize().width - mainWindow.getWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - mainWindow.getHeight()) / 2));
         mainWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -115,7 +118,8 @@ public class Main {
 
 //		Create Button Panel
 		String[] labels = {"Log new print", "Log filament brought", "Modify user", "Modify print", "Prepare workshop", "Show / hide NetID", "Refresh database", "New database", "🔎 Search", "⚙ Local settings"};
-		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1));
+		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1, 20, 10));
+		buttonPanel.setBackground(bg);
 		for(String label : labels) {
 			JButton btn = new JButton(label);
 			btn.setVisible(true);
