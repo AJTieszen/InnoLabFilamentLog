@@ -65,12 +65,12 @@ public class Main {
 	}
 	
 	public static void createLayout() {
+//		Set color scheme
+		setColorScheme(Settings.getColorScheme());
+		
 //		Set up border
 		Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, fg);
 		Border rightBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, fg);
-		
-//		Set color scheme
-		setColorScheme(Settings.getColorScheme());
 		
 //		Create main window
 		printerIcon = new ImageIcon("Ender3Logo.png");
@@ -223,7 +223,7 @@ public class Main {
 		}
 	}
 	
- 	static class ButtonListener implements ActionListener {		
+ 	static class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand() == "Log new print") {
 				PrintLogger.show();
