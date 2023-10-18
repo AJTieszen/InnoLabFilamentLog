@@ -44,7 +44,7 @@ public class Search {
 		searchBar.setBorder(bottomBorder);
 		String[] fields = {"Name: ", "NetID: ", "Project: ", "Ticket: ", "Date: ", "Material: "};
 		fieldBox = new JComboBox<String> (fields);
-		fieldBox.setBackground(bg);
+		fieldBox.setBackground(accent);
 		fieldBox.setForeground(fg);
 		searchBar.add(fieldBox);
 		
