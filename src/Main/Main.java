@@ -209,10 +209,6 @@ public class Main {
 			showNetID = true;
 		}
 	}
-	public static void refreshWindow() {
-		mainWindow.dispose();
-		createLayout();
-	}
 	private static void setColorScheme(String scheme) {
 		System.out.println(scheme);
 		if (scheme.equalsIgnoreCase("Dark")) {
