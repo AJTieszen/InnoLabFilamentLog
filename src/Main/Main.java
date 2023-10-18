@@ -210,15 +210,25 @@ public class Main {
 		}
 	}
 	private static void setColorScheme(String scheme) {
-		System.out.println(scheme);
 		if (scheme.equalsIgnoreCase("Dark")) {
 			bg = Color.DARK_GRAY;
 			accent = Color.BLACK;
 			fg = Color.WHITE;
-		} else if (scheme.equalsIgnoreCase("Light")) {
+		}
+		if (scheme.equalsIgnoreCase("Light")) {
 			bg = Color.WHITE;
 			accent = Color.LIGHT_GRAY;
 			fg = Color.BLACK;
+		}
+		if (scheme.equalsIgnoreCase("Light - Blue")) {
+			bg = Color.WHITE;
+			accent = new Color(89, 203, 232);
+			fg = Color.BLACK;
+		}
+		if (scheme.equalsIgnoreCase("Dark - Blue")) {
+			bg = Color.DARK_GRAY;
+			accent = new Color(0, 32, 92);
+			fg = Color.WHITE;
 		}
 	}
 	

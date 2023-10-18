@@ -63,7 +63,7 @@ public class Settings {
 		coursePerStud = new JTextField(course_per_stud.toString());
 		coursePerStud.setBackground(bg);
 		coursePerStud.setForeground(fg);
-		String[] schemes = {"Light", "Dark"};
+		String[] schemes = {"Light", "Light - Blue", "Dark", "Dark - Blue"};
 		colorScheme = new JComboBox<String>(schemes);
 		colorScheme.setBackground(bg);
 		colorScheme.setForeground(fg);
@@ -114,7 +114,7 @@ public class Settings {
 		settingsGrid3.setBackground(bg);
 		JPanel title3 = new JPanel(new FlowLayout());
 		title3.setBackground(bg);
-		JLabel appearance = new JLabel("Program Appearance:");
+		JLabel appearance = new JLabel("Program Appearance (restart to apply):");
 		appearance.setForeground(fg);
 		title3.add(appearance);
 		JLabel mode = new JLabel("Color Scheme:");
