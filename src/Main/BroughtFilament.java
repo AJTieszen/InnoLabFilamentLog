@@ -90,8 +90,8 @@ public class BroughtFilament {
 	
 	public static void submit() {
 //		Read Input Values
-		String netid = idBox.getText();
-		String amt = amountBox.getText().replace(",", "");
+		String netid = idBox.getText().trim();
+		String amt = amountBox.getText().replace(",", "").trim();
 		
 //		Clean up inputs
 		if (netid.length() == 0 || amt.length() == 0) {
