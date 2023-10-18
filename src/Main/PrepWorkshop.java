@@ -87,9 +87,9 @@ public class PrepWorkshop {
 	}
 
 	public static void submit() {
-		String name = nameBox.getText();
-		String id = idBox.getText();
-		String participants = participantsBox.getText();
+		String name = nameBox.getText().trim();
+		String id = idBox.getText().trim();
+		String participants = participantsBox.getText().trim();
 		
 //		Clean up inputs
 		if (name.length() == 0 || id.length() == 0 || participants.length() == 0) {

@@ -112,8 +112,8 @@ public class Search {
 		Color accent = Main.accent;
 		
 //		Read search term and target column
-		String field = fieldBox.getSelectedItem().toString().replace(":", "").replace(" ", "");
-		String term = searchBox.getText();
+		String field = fieldBox.getSelectedItem().toString().replace(":", "").trim();
+		String term = searchBox.getText().trim();
 		
 //		Clear tables
 		tablePanel.removeAll();

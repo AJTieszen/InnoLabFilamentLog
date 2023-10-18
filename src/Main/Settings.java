@@ -153,12 +153,12 @@ public class Settings {
 	}
 	public static void submit() {
 //		Read input fields
-		String dir = fileDir.getText();
-		String f = fileName.getText();
-		String sb = studentBudget.getText();
-		String cb = courseBudget.getText();
-		String cbp = coursePerStud.getText();
-		String clr = colorScheme.getSelectedItem().toString();
+		String dir = fileDir.getText().trim();
+		String f = fileName.getText().trim();
+		String sb = studentBudget.getText().trim();
+		String cb = courseBudget.getText().trim();
+		String cbp = coursePerStud.getText().trim();
+		String clr = colorScheme.getSelectedItem().toString().trim();
 		System.out.println(clr);
 		int sbudget = Integer.parseInt(sb);
 		int cbudget = Integer.parseInt(cb);
