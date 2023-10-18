@@ -153,6 +153,7 @@ public class Main {
 		projectTable.setGridColor(fg);
 		projectTable.getTableHeader().setBackground(accent);
 		projectTable.getTableHeader().setForeground(fg);
+		
 		JScrollPane projectScrollPane = new JScrollPane(projectTable);
 		projectScrollPane.setMinimumSize(new Dimension(250, 100));
 		projectScrollPane.setPreferredSize(new Dimension(250, Integer.MAX_VALUE));
@@ -176,8 +177,10 @@ public class Main {
 		budgetTable.setBackground(bg);
 		budgetTable.setForeground(fg);
 		budgetTable.setGridColor(fg);
+		budgetTable.getColumnModel().getColumn(4).setCellRenderer(new ColorRenderer());
 		budgetTable.getTableHeader().setBackground(accent);
 		budgetTable.getTableHeader().setForeground(fg);
+		
 		JScrollPane budgetScrollPane = new JScrollPane(budgetTable);
 		budgetScrollPane.setMinimumSize(new Dimension(250, 100));
 		budgetScrollPane.setPreferredSize(new Dimension(250, Integer.MAX_VALUE));
