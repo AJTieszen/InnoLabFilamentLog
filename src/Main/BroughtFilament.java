@@ -20,8 +20,13 @@ public class BroughtFilament {
 	private static JFormattedTextField amountBox;
 	
 	public static void show() {
+//		Copy colors from main
+		Color bg = Main.bg;
+		Color fg = Main.fg;
+		Color accent = Main.accent;
+		
 //		Create Border
-		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
+		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, fg);
 		
 //		Setup Window
 		logWindow = new JFrame("Enter filament information");
@@ -30,15 +35,21 @@ public class BroughtFilament {
 		logWindow.setIconImage(Main.printerIcon.getImage());
 		logWindow.setAlwaysOnTop(true);
 		logWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		logWindow.setBackground(bg);
 		
 //		Create main section
 		JPanel logArea = new JPanel();
 		logArea.setLayout(new BoxLayout(logArea, BoxLayout.Y_AXIS));
 		JPanel logGrid = new JPanel(new GridLayout(0, 2, 20, 2));
+		logGrid.setBackground(bg);
 		
 		idBox = new JTextField();
 		idBox.setPreferredSize(new Dimension(175, 25));
-		logGrid.add(new JLabel("NetID:"));
+		idBox.setBackground(bg);
+		idBox.setForeground(fg);
+		JLabel netid = new JLabel("NetID:");
+		netid.setForeground(fg);
+		logGrid.add(netid);
 		logGrid.add(idBox);
 		
 		NumberFormat fmt = NumberFormat.getIntegerInstance();
@@ -46,15 +57,23 @@ public class BroughtFilament {
 		formatter.setMinimum(0);
 		formatter.setMaximum(999999999);
 		amountBox = new JFormattedTextField(formatter);
-		logGrid.add(new JLabel("Amount Brought (g):"));
 		amountBox.setActionCommand("Submit");
 		amountBox.addActionListener(new ButtonListener());
+		amountBox.setBackground(bg);
+		amountBox.setForeground(fg);
+		JLabel amount = new JLabel("Amount Brought (g):");
+		amount.setForeground(fg);
+		logGrid.add(amount);
 		logGrid.add(amountBox);
 		logGrid.setBorder(bottomBorder);
 		
 //		Create submit button
 		JPanel buttonPanel = new JPanel(new BorderLayout());
+		buttonPanel.setBackground(bg);
 		JButton submit = new JButton("Submit");
+		submit.setBackground(accent);
+		submit.setForeground(fg);
+		
 		submit.addActionListener(new ButtonListener());
 		buttonPanel.add(submit, BorderLayout.EAST);
 		

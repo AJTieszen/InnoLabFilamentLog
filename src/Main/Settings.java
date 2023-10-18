@@ -17,68 +17,132 @@ public class Settings {
 	private static Integer student_budget = 500;
 	private static Integer course_budget = 3000;
 	private static Integer course_per_stud = 200;
+	private static String colors = "Dark";
+	private static String oldColors = "Dark";
 
 	private static JTextField fileDir;
 	private static JTextField fileName;
 	private static JTextField studentBudget;
 	private static JTextField courseBudget;
 	private static JTextField coursePerStud;
+	private static JComboBox<String> colorScheme;
 	
 	private static JFrame settingsEditor = new JFrame("Settings");
 	
 	public static void show() {
+//		Copy colors from main
+		Color bg = Main.bg;
+		Color fg = Main.fg;
+		Color accent = Main.accent;
+		
 //		Create Border
-		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
+		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, fg);
+		oldColors = colors;
 		
 //		Setup Window
 		settingsEditor.setSize(640, 480);
 		settingsEditor.setLayout(new BorderLayout());
+		settingsEditor.setBackground(bg);
 		settingsEditor.setIconImage(Main.printerIcon.getImage());
 		settingsEditor.setAlwaysOnTop(true);
 		settingsEditor.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		fileDir = new JTextField(db_directory);
+		fileDir.setBackground(bg);
+		fileDir.setForeground(fg);
 		fileName = new JTextField(db_file);
+		fileName.setBackground(bg);
+		fileName.setForeground(fg);
 		studentBudget = new JTextField(student_budget.toString());
+		studentBudget.setBackground(bg);
+		studentBudget.setForeground(fg);
 		studentBudget.setPreferredSize(new Dimension(175, 25));
 		courseBudget = new JTextField(course_budget.toString());
+		courseBudget.setBackground(bg);
+		courseBudget.setForeground(fg);
 		coursePerStud = new JTextField(course_per_stud.toString());
+		coursePerStud.setBackground(bg);
+		coursePerStud.setForeground(fg);
+		String[] schemes = {"Light", "Dark"};
+		colorScheme = new JComboBox<String>(schemes);
+		colorScheme.setBackground(bg);
+		colorScheme.setForeground(fg);
 		
 //		Create main section
 		JPanel settingsArea = new JPanel();
 		settingsArea.setLayout(new BoxLayout(settingsArea, BoxLayout.Y_AXIS));
+		settingsArea.setBackground(bg);
 		
 		JPanel settingsGrid1 = new JPanel(new GridLayout(0, 2, 20, 2));
+		settingsGrid1.setBackground(bg);
 		JPanel title1 = new JPanel(new FlowLayout());
-		title1.add(new JLabel("File Path:"));
+		title1.setBackground(bg);
+		JLabel path = new JLabel("File Path:");
+		path.setForeground(fg);
+		title1.add(path);
 		
-		settingsGrid1.add(new JLabel("Database directory:"));
+		JLabel database = new JLabel("Database directory:");
+		database.setForeground(fg);
+		settingsGrid1.add(database);
 		settingsGrid1.add(fileDir);
-		settingsGrid1.add(new JLabel("Database filename:"));
+		database = new JLabel("Database filename:");
+		database.setForeground(fg);
+		settingsGrid1.add(database);
 		settingsGrid1.add(fileName);
 		
 		JPanel settingsGrid2 = new JPanel(new GridLayout(0, 2, 20, 2));
+		settingsGrid2.setBackground(bg);
 		JPanel title2 = new JPanel(new FlowLayout());
-		title2.add(new JLabel("Filament allocations:"));
-		settingsGrid2.add(new JLabel("Student Budget (g):"));
+		title2.setBackground(bg);
+		JLabel allocations = new JLabel("Filament allocations:");
+		allocations.setForeground(fg);
+		title2.add(allocations);
+		JLabel budgets = new JLabel("Student Budget (g):");
+		budgets.setForeground(fg);
+		settingsGrid2.add(budgets);
 		settingsGrid2.add(studentBudget);
-		settingsGrid2.add(new JLabel("Class Budget (g):"));
+		budgets = new JLabel("Class Budget (g):");
+		budgets.setForeground(fg);
+		settingsGrid2.add(budgets);
 		settingsGrid2.add(courseBudget);
-		settingsGrid2.add(new JLabel("Class Budget Per Student:"));
+		budgets = new JLabel("Class Budget Per Student:");
+		budgets.setForeground(fg);
+		settingsGrid2.add(budgets);
 		settingsGrid2.add(coursePerStud);
+		
+		JPanel settingsGrid3 = new JPanel(new GridLayout(0, 2, 20, 2));
+		settingsGrid3.setBackground(bg);
+		JPanel title3 = new JPanel(new FlowLayout());
+		title3.setBackground(bg);
+		JLabel appearance = new JLabel("Program Appearance:");
+		appearance.setForeground(fg);
+		title3.add(appearance);
+		JLabel mode = new JLabel("Color Scheme:");
+		mode.setForeground(fg);
+		settingsGrid3.add(mode);
+		settingsGrid3.add(colorScheme);
+		
+		if(!colors.isEmpty()) {
+			colorScheme.setSelectedItem(colors);
+		}
 
 		settingsArea.add(title1);
 		settingsArea.add(settingsGrid1);
 		settingsArea.add(title2);
 		settingsArea.add(settingsGrid2);
+		settingsArea.add(title3);
+		settingsArea.add(settingsGrid3);
 		settingsArea.setBorder(bottomBorder);
 		
 		settingsEditor.add(settingsArea, BorderLayout.CENTER);
 		
 //		Create bottom section
 		JPanel submitButton = new JPanel(new BorderLayout());
+		submitButton.setBackground(bg);
 		JButton button = new JButton("Submit");
 		button.addActionListener(new ButtonListener());
+		button.setBackground(accent);
+		button.setForeground(fg);
 		submitButton.add(button, BorderLayout.EAST);
 		settingsEditor.add(submitButton, BorderLayout.SOUTH);
 		
@@ -87,7 +151,6 @@ public class Settings {
 		settingsEditor.setVisible(true);
 		settingsEditor.setLocation(new Point(Main.mainWindow.getLocation().x + (Main.mainWindow.getWidth() - settingsEditor.getWidth()) / 2, Main.mainWindow.getLocation().y + (Main.mainWindow.getHeight() - settingsEditor.getHeight()) / 2));
 	}
-	
 	public static void submit() {
 //		Read input fields
 		String dir = fileDir.getText();
@@ -95,6 +158,8 @@ public class Settings {
 		String sb = studentBudget.getText();
 		String cb = courseBudget.getText();
 		String cbp = coursePerStud.getText();
+		String clr = colorScheme.getSelectedItem().toString();
+		System.out.println(clr);
 		int sbudget = Integer.parseInt(sb);
 		int cbudget = Integer.parseInt(cb);
 		int cpbudget = Integer.parseInt(cbp);
@@ -105,6 +170,10 @@ public class Settings {
 		student_budget = sbudget;
 		course_budget = cbudget;
 		course_per_stud = cpbudget;
+		oldColors = colors;
+		colors = clr;
+		
+		System.out.println(oldColors + " | " + colors);
 		
 		writeFile();
 		
@@ -153,12 +222,21 @@ public class Settings {
 			course_budget = Integer.parseInt(lineScanner.next());
 			lineScanner.close();
 			
-//			Read course budget
+//			Read course budget per participant
 			line = scanner.nextLine();
 			lineScanner = new Scanner(line);
 			lineScanner.useDelimiter("= ");
 			lineScanner.next();
 			course_per_stud = Integer.parseInt(lineScanner.next());
+			lineScanner.close();
+			
+//			Read dark mode status
+			line = scanner.nextLine();
+			line = scanner.nextLine();
+			lineScanner = new Scanner(line);
+			lineScanner.useDelimiter("= ");
+			lineScanner.next();
+			colors = lineScanner.next();
 			lineScanner.close();
 			
 			scanner.close();
@@ -178,6 +256,8 @@ public class Settings {
 			writer.write("Student Budget (g)        = " + student_budget + "\n");
 			writer.write("Class Budget (g)          = " + course_budget + "\n");
 			writer.write("Class Budget Per Student  = " + course_per_stud + "\n");
+			writer.write("Appearance:\n");
+			writer.write("Color Scheme              = " + colors + "\n");
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -202,7 +282,10 @@ public class Settings {
 	public static int getCoursePerStud() {
 		return course_per_stud;
 	}
-
+	public static String getColorScheme() {
+		return colors;
+	}
+	
 	public static void setDbDirectory(String dir) {
 		db_directory = dir;
 	}

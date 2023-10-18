@@ -31,22 +31,27 @@ public class Main {
 	public static final int MIN_FRAME_HEIGHT = 640;
 	public static final int L_PANEL_WIDTH = 250;
 	
-	public static final JFrame mainWindow = new JFrame("Innovation Lab Print Log");
+	public static Color bg = Color.DARK_GRAY;
+	public static Color accent = Color.BLACK;
+	public static Color fg = Color.WHITE;
+	
+	public static JFrame mainWindow;
 
-	public static final ImageIcon innoLabIcon = new ImageIcon("InnovationLabLogo.png");
-	public static final ImageIcon printerIcon = new ImageIcon("Ender3Logo.png");
+	public static ImageIcon innoLabIcon;
+	public static ImageIcon printerIcon;
 	
 	public static JTable projectTable = new JTable(new ProjectTableModel());
 	public static JTable budgetTable = new JTable(new BudgetTableModel());
 	public static boolean showNetID = true;
 	
-	public static final JLabel statMessage = new JLabel("OK");
+	public static JLabel statMessage;
 	
 	public static final File initFile = new File("3D Print Log.ini");	
 	
 	public static void main(String[] args) {
-		createLayout();
-		showHideNetID();
+		statMessage = new JLabel("Starting up");
+		printerIcon = new ImageIcon("Ender3Logo.png");
+		mainWindow = new JFrame("Innovation Lab Print Log");
 		
 //		Load Program Settings
 		if (initFile.exists() && !initFile.isDirectory()) {
@@ -57,14 +62,20 @@ public class Main {
 			Settings.show();
 		}
 		
+		createLayout();
+		showHideNetID();
+		
 		Database.setup();
 		Database.refresh();
 	}
 	
 	public static void createLayout() {
+//		Set color scheme
+		setColorScheme(Settings.getColorScheme());
+		
 //		Set up border
-		Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.black);
-		Border rightBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, Color.black);
+		Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, fg);
+		Border rightBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, fg);
 		
 //		Create main window
 		mainWindow.setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
@@ -73,53 +84,76 @@ public class Main {
 		mainWindow.setIconImage(printerIcon.getImage());
 		mainWindow.setMinimumSize(new Dimension(MIN_FRAME_WIDTH, MIN_FRAME_HEIGHT));
 		mainWindow.setLayout(new BorderLayout());
+		mainWindow.setBackground(bg);
+		
 		
 //		Create status bar
 		JPanel statBar = new JPanel();
+		statBar.setBackground(bg);
 		statBar.setLayout(new BoxLayout(statBar, BoxLayout.X_AXIS));
 		statBar.setBorder(topBorder);
 		mainWindow.add(statBar, BorderLayout.SOUTH);
 
-		statBar.add(new JLabel("Status: "));
+		JLabel status = new JLabel("Status: ");
+		statMessage = new JLabel("OK");
+		status.setForeground(fg);
+		statMessage.setForeground(fg);
+		statBar.add(status);
 		statBar.add(statMessage);
 		statBar.setVisible(true);
 		
 //		Create Left Panel
 		JPanel leftPanel = new JPanel();
+		leftPanel.setBackground(bg);
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 		leftPanel.setBorder(rightBorder);
 		mainWindow.add(leftPanel, BorderLayout.WEST);
 		
+		innoLabIcon = new ImageIcon("InnovationLabLogo.png");
 		JLabel img = new JLabel(innoLabIcon);
 		JPanel centerImage = new JPanel(new FlowLayout());
+		centerImage.setBackground(bg);
 		centerImage.add(img);
 		leftPanel.add(centerImage);
 
 //		Create Button Panel
 		String[] labels = {"Log new print", "Log filament brought", "Modify user", "Modify print", "Prepare workshop", "Show / hide NetID", "Refresh database", "New database", "🔎 Search", "⚙ Local settings"};
-		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1));
+		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1, 20, 10));
+		buttonPanel.setBackground(bg);
 		for(String label : labels) {
 			JButton btn = new JButton(label);
 			btn.setVisible(true);
 			btn.addActionListener(new ButtonListener());
+			btn.setBackground(accent);
+			btn.setForeground(fg);
 			buttonPanel.add(btn);
 		}
 		leftPanel.add(buttonPanel);
 		
 		JPanel emptyPanel = new JPanel(new FlowLayout());
+		emptyPanel.setBackground(bg);
 		leftPanel.add(emptyPanel);
 		
 //		Create Middle Panel
 		JPanel leftTable = new JPanel();
 		leftTable.setLayout(new BoxLayout(leftTable, BoxLayout.Y_AXIS));
 		leftTable.setBorder(rightBorder);
+		leftTable.setBackground(bg);
 		
 		JPanel centerLeftTableTitle = new JPanel(new FlowLayout());
-		centerLeftTableTitle.add(new JLabel("Current print jobs:"));
+		JLabel currentPrintJobs = new JLabel("Current print jobs:");
+		centerLeftTableTitle.setBackground(bg);
+		currentPrintJobs.setForeground(fg);
+		centerLeftTableTitle.add(currentPrintJobs);
 		leftTable.add(centerLeftTableTitle);
 		
 //		Create Project Table
 		projectTable.setFillsViewportHeight(true);
+		projectTable.setBackground(bg);
+		projectTable.setForeground(fg);
+		projectTable.setGridColor(fg);
+		projectTable.getTableHeader().setBackground(accent);
+		projectTable.getTableHeader().setForeground(fg);
 		JScrollPane projectScrollPane = new JScrollPane(projectTable);
 		projectScrollPane.setMinimumSize(new Dimension(250, 100));
 		projectScrollPane.setPreferredSize(new Dimension(250, Integer.MAX_VALUE));
@@ -127,15 +161,24 @@ public class Main {
 		
 //		Create Right Panel
 		JPanel rightTable = new JPanel();
+		rightTable.setBackground(bg);
 		rightTable.setLayout(new BoxLayout(rightTable, BoxLayout.Y_AXIS));
 		rightTable.setBorder(rightBorder);
 		
 		JPanel centerRightTableTitle = new JPanel(new FlowLayout());
-		centerRightTableTitle.add(new JLabel("Filament budgets:"));
+		JLabel filamentBudgets = new JLabel("Filament budgets:");
+		centerRightTableTitle.setBackground(bg);
+		filamentBudgets.setForeground(fg);
+		centerRightTableTitle.add(filamentBudgets);
 		rightTable.add(centerRightTableTitle);
 		
 //		Create budget Table
 		budgetTable.setFillsViewportHeight(true);
+		budgetTable.setBackground(bg);
+		budgetTable.setForeground(fg);
+		budgetTable.setGridColor(fg);
+		budgetTable.getTableHeader().setBackground(accent);
+		budgetTable.getTableHeader().setForeground(fg);
 		JScrollPane budgetScrollPane = new JScrollPane(budgetTable);
 		budgetScrollPane.setMinimumSize(new Dimension(250, 100));
 		budgetScrollPane.setPreferredSize(new Dimension(250, Integer.MAX_VALUE));
@@ -167,8 +210,20 @@ public class Main {
 			showNetID = true;
 		}
 	}
-
- 	static class ButtonListener implements ActionListener {		
+	private static void setColorScheme(String scheme) {
+		System.out.println(scheme);
+		if (scheme.equalsIgnoreCase("Dark")) {
+			bg = Color.DARK_GRAY;
+			accent = Color.BLACK;
+			fg = Color.WHITE;
+		} else if (scheme.equalsIgnoreCase("Light")) {
+			bg = Color.WHITE;
+			accent = Color.LIGHT_GRAY;
+			fg = Color.BLACK;
+		}
+	}
+	
+ 	static class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand() == "Log new print") {
 				PrintLogger.show();

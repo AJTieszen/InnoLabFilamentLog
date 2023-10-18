@@ -31,25 +31,35 @@ public class PrintLogger {
 	private static boolean forClass = false;
 	
 	public static void show() {
+//		Copy colors from main
+		Color bg = Main.bg;
+		Color fg = Main.fg;
+		Color accent = Main.accent;
+		
 //		Create Border
-		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
+		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, fg);
 		forClass = false;
 		
 //		Setup Window
 		logWindow = new JFrame("Enter print information");
+		logWindow.setBackground(bg);
 		logWindow.setSize(640, 480);
 		logWindow.setLayout(new BorderLayout());
 		logWindow.setIconImage(Main.printerIcon.getImage());
+		logWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		ButtonListener bl = new ButtonListener();
 		
 //		Create log mode button
 		JPanel logPanel = new JPanel();
+		logPanel.setBackground(bg);
 		logPanel.setBorder(bottomBorder);
 		logPanel.setLayout(new BoxLayout(logPanel, BoxLayout.Y_AXIS));
 		JPanel toggleP1 = new JPanel (new FlowLayout());
 		toggleP1.setBorder(bottomBorder);
 		toggleP1.setOpaque(false);
 		classPrint = new JCheckBox("Log Class Print");
+		classPrint.setBackground(bg);
+		classPrint.setForeground(fg);
 		classPrint.setActionCommand("Switch");
 		classPrint.addActionListener(bl);
 		toggleP1.add(classPrint);
@@ -57,33 +67,57 @@ public class PrintLogger {
 		
 //		Create log layout
 		logGrid = new JPanel(new GridLayout(0, 2, 20, 2));
+		logGrid.setBackground(bg);
 		
 		dateBox = new JTextField();
+		dateBox.setBackground(bg);
+		dateBox.setForeground(fg);
+		JLabel date = new JLabel("Date:");
+		date.setForeground(fg);
 		dateBox.setText(java.time.LocalDate.now().toString().replace('-', '/'));
-		logGrid.add(new JLabel("Date:"));
+		logGrid.add(date);
 		logGrid.add(dateBox);
 		
 		idLabel = new JLabel("NetID:");
+		idLabel.setForeground(fg);
 		idLabel.setPreferredSize(new Dimension(175, 10));
 		idBox = new JTextField();
+		idBox.setBackground(bg);
+		idBox.setForeground(fg);
 		logGrid.add(idLabel);
 		logGrid.add(idBox);
 		
 		nameBox = new JTextField();
-		logGrid.add(new JLabel("Requester Name:"));
+		nameBox.setBackground(bg);
+		nameBox.setForeground(fg);
+		JLabel requesterName = new JLabel("Requester Name:");
+		requesterName.setForeground(fg);
+		logGrid.add(requesterName);
 		logGrid.add(nameBox);
 		
 		projectBox = new JTextField();
-		logGrid.add(new JLabel("Project Name:"));
+		projectBox.setBackground(bg);
+		projectBox.setForeground(fg);
+		JLabel projectName = new JLabel("Project Name:");
+		projectName.setForeground(fg);		
+		logGrid.add(projectName);
 		logGrid.add(projectBox);
 		
 		ticketBox = new JTextField();
-		logGrid.add(new JLabel("Ticket #:"));
+		ticketBox.setBackground(bg);
+		ticketBox.setForeground(fg);
+		JLabel ticket = new JLabel("Ticket #:");
+		ticket.setForeground(fg);
+		logGrid.add(ticket);
 		logGrid.add(ticketBox);
 		
 		String[] mats = {"PETG", "PLA", "TPU", "ABS", "Other"};
 		materialBox = new JComboBox<String>(mats);
-		logGrid.add(new JLabel("Material:"));
+		materialBox.setBackground(bg);
+		materialBox.setForeground(fg);
+		JLabel material = new JLabel("Material:");
+		material.setForeground(fg);
+		logGrid.add(material);
 		logGrid.add(materialBox);
 		
 		NumberFormat fmt = NumberFormat.getIntegerInstance();
@@ -91,30 +125,46 @@ public class PrintLogger {
 		formatter.setMinimum(0);
 		formatter.setMaximum(999999999);
 		amountBox = new JFormattedTextField(formatter);
-		logGrid.add(new JLabel("Amount (g):"));
+		amountBox.setBackground(bg);
+		amountBox.setForeground(fg);
+		JLabel amount = new JLabel("Amount (g):");
+		amount.setForeground(fg);
+		logGrid.add(amount);
 		amountBox.setActionCommand("Submit");
 		amountBox.addActionListener(bl);
 		logGrid.add(amountBox);
 		
 		courseIDLabel = new JLabel("Course or Organization ID:");
+		courseIDLabel.setForeground(fg);
 		courseIDBox = new JTextField();
+		courseIDBox.setBackground(bg);
+		courseIDBox.setForeground(fg);
 		courseLabel = new JLabel("Course or Organization Name:");
+		courseLabel.setForeground(fg);
 		courseBox = new JTextField();
+		courseBox.setBackground(bg);
+		courseBox.setForeground(fg);
 		participantLabel = new JLabel("Expected Participants:");
+		participantLabel.setForeground(fg);
 		formatter = new NumberFormatter(fmt);
 		formatter.setMinimum(1);
 		formatter.setMaximum(999);
 		participantBox = new JFormattedTextField(formatter);
 		participantBox.setActionCommand("Submit");
 		participantBox.addActionListener(bl);
+		participantBox.setBackground(bg);
+		participantBox.setForeground(fg);
 		
 		logPanel.add(logGrid);
 		logWindow.add(logPanel, BorderLayout.CENTER);
 		
 //		Create submit button
 		JPanel submitButton = new JPanel(new BorderLayout());
+		submitButton.setBackground(bg);
 		JButton submit = new JButton("Submit");
 		submit.addActionListener(bl);
+		submit.setBackground(accent);
+		submit.setForeground(fg);
 		submitButton.add(submit, BorderLayout.EAST);
 		logWindow.add(submitButton, BorderLayout.SOUTH);
 		

@@ -24,11 +24,17 @@ public class ModUser {
 	private static boolean userFound = false;
 	
 	public static void show() {
+//		Copy colors from main
+		Color bg = Main.bg;
+		Color fg = Main.fg;
+		Color accent = Main.accent;
+		
 //		Create Border
-		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
+		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, fg);
 		
 //		Setup Window
 		logWindow = new JFrame("Modify User Information");
+		logWindow.setBackground(bg);
 		logWindow.setSize(640, 480);
 		logWindow.setLayout(new BorderLayout());
 		logWindow.setIconImage(Main.printerIcon.getImage());
@@ -39,7 +45,9 @@ public class ModUser {
 		JPanel logArea = new JPanel();
 		logArea.setLayout(new BoxLayout(logArea, BoxLayout.Y_AXIS));
 		JPanel logGrid = new JPanel(new GridLayout(0, 3, 20, 2));
+		logGrid.setBackground(bg);
 		JPanel logGrid2 = new JPanel(new GridLayout(0, 2, 20, 2));
+		logGrid2.setBackground(bg);
 		logArea.add(logGrid);
 		logArea.add(logGrid2);
 		logWindow.add(logArea);
@@ -47,20 +55,34 @@ public class ModUser {
 		idBox = new JTextField();
 		idBox.setActionCommand("🔎 Search");
 		idBox.addActionListener(new ButtonListener());
+		idBox.setBackground(bg);
+		idBox.setForeground(fg);
 		JButton b1 = new JButton("🔎 Search");
 		b1.addActionListener(new ButtonListener());
-		logGrid.add(new JLabel("Enter NetID:"));
+		b1.setBackground(accent);
+		b1.setForeground(fg);
+		JLabel enterNetid = new JLabel("Enter NetID:");
+		enterNetid.setForeground(fg);
+		logGrid.add(enterNetid);
 		logGrid.add(idBox);
 		logGrid.add(b1);
 		logGrid.setBorder(bottomBorder);
 		
 		idBox2 = new JTextField();
 		idBox2.setEditable(false);
-		logGrid2.add(new JLabel("NetID:"));
+		idBox2.setBackground(bg);
+		idBox2.setForeground(fg);
+		JLabel netid = new JLabel("NetID:");
+		netid.setForeground(fg);
+		logGrid2.add(netid);
 		logGrid2.add(idBox2);
 		
 		nameBox = new JTextField();
-		logGrid2.add(new JLabel("Name:"));
+		nameBox.setBackground(bg);
+		nameBox.setForeground(fg);
+		JLabel name = new JLabel("Name:");
+		name.setForeground(fg);
+		logGrid2.add(name);
 		logGrid2.add(nameBox);
 
 		NumberFormat fmt = NumberFormat.getIntegerInstance();
@@ -68,18 +90,30 @@ public class ModUser {
 		formatter.setMinimum(0);
 		formatter.setMaximum(999999999);
 		usedBox = new JFormattedTextField(formatter);
-		logGrid2.add(new JLabel("Filament Used:"));
+		usedBox.setBackground(bg);
+		usedBox.setForeground(fg);
+		JLabel used = new JLabel("Filament Used:");
+		used.setForeground(fg);
+		logGrid2.add(used);
 		logGrid2.add(usedBox);
 		
 		broughtBox = new JFormattedTextField(formatter);
-		logGrid2.add(new JLabel("Filament Brought:"));
+		broughtBox.setBackground(bg);
+		broughtBox.setForeground(fg);
+		JLabel brought = new JLabel("Filament Brought:");
+		brought.setForeground(fg);
+		logGrid2.add(brought);
 		logGrid2.add(broughtBox);
 		
 		remainingBox = new JFormattedTextField(formatter);
-		logGrid2.add(new JLabel("Filament Remaining:"));
-		logGrid2.add(remainingBox);
+		remainingBox.setBackground(bg);
+		remainingBox.setForeground(fg);
 		remainingBox.setActionCommand("Submit");
 		remainingBox.addActionListener(new ButtonListener());
+		JLabel remaining = new JLabel("Filament Remaining:");
+		remaining.setForeground(fg);
+		logGrid2.add(remaining);
+		logGrid2.add(remainingBox);
 		logGrid2.setBorder(bottomBorder);
 		
 //		Create submit button

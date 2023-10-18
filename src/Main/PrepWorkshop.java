@@ -9,8 +9,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.text.NumberFormatter;
 
-import Main.ModPrint.ButtonListener;
-
 public class PrepWorkshop {
 	private static JFrame logWindow;
 	private static JTextField nameBox;
@@ -18,26 +16,42 @@ public class PrepWorkshop {
 	private static JFormattedTextField participantsBox;
 	
 	public static void show() {
+//		Copy colors from main
+		Color bg = Main.bg;
+		Color fg = Main.fg;
+		Color accent = Main.accent;
+		
 //		Create Border
-		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
+		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, fg);
 		
 //		Setup Window
 		logWindow = new JFrame("Enter workshop information");
+		logWindow.setBackground(bg);
 		logWindow.setSize(640, 480);
 		logWindow.setLayout(new BorderLayout());
 		logWindow.setIconImage(Main.printerIcon.getImage());
+		logWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 //		Create main section
 		JPanel logArea = new JPanel(new GridLayout(0, 2, 20, 2));
 		logArea.setBorder(bottomBorder);
+		logArea.setBackground(bg);
 		logWindow.add(logArea);
 		
 		nameBox = new JTextField();
-		logArea.add(new JLabel("Class or workshop name:"));
+		nameBox.setBackground(bg);
+		nameBox.setForeground(fg);
+		JLabel wsName = new JLabel("Class or workshop name:");
+		wsName.setForeground(fg);
+		logArea.add(wsName);
 		logArea.add(nameBox);
 		
 		idBox = new JTextField();
-		logArea.add(new JLabel("Class or workshop ID:"));
+		idBox.setBackground(bg);
+		idBox.setForeground(fg);
+		JLabel wsid = new JLabel("Class or workshop ID:");
+		wsid.setForeground(fg);
+		logArea.add(wsid);
 		logArea.add(idBox);
 		
 		NumberFormat fmt = NumberFormat.getIntegerInstance();
@@ -45,16 +59,23 @@ public class PrepWorkshop {
 		formatter.setMinimum(0);
 		formatter.setMaximum(999999999);
 		participantsBox = new JFormattedTextField(formatter);
-		logArea.add(new JLabel("Expected Participants:"));
 		participantsBox.setActionCommand("Submit");
 		participantsBox.addActionListener(new ButtonListener());
+		participantsBox.setBackground(bg);
+		participantsBox.setForeground(fg);
+		JLabel participants = new JLabel("Expected Participant Count:");
+		participants.setForeground(fg);
+		logArea.add(participants);
 		logArea.add(participantsBox);
 		logArea.setBorder(bottomBorder);
 		
 //		Create submit button
 		JPanel submitArea = new JPanel(new BorderLayout());
+		submitArea.setBackground(bg);
 		JButton submit = new JButton("Submit");
 		submit.addActionListener(new ButtonListener());
+		submit.setBackground(accent);
+		submit.setForeground(fg);
 		submitArea.add(submit, BorderLayout.EAST);
 		logWindow.add(submitArea, BorderLayout.SOUTH);
 		

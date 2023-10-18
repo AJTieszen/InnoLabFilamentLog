@@ -28,8 +28,13 @@ public class ModPrint {
 	private static String oldID;
 	
 	public static void show() {
+//		Copy colors from main
+		Color bg = Main.bg;
+		Color fg = Main.fg;
+		Color accent = Main.accent;
+		
 //		Create Border
-		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
+		Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, fg);
 		
 //		Setup Window
 		logWindow = new JFrame("Modify User Information");
@@ -38,12 +43,15 @@ public class ModPrint {
 		logWindow.setIconImage(Main.printerIcon.getImage());
 		logWindow.setAlwaysOnTop(true);
 		logWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		logWindow.setBackground(bg);
 		
 //		Create main section
 		JPanel logArea = new JPanel();
 		logArea.setLayout(new BoxLayout(logArea, BoxLayout.Y_AXIS));
 		JPanel logGrid = new JPanel(new GridLayout(0, 3, 20, 2));
 		JPanel logGrid2 = new JPanel(new GridLayout(0, 2, 20, 2));
+		logGrid.setBackground(bg);
+		logGrid2.setBackground(bg);
 		logArea.add(logGrid);
 		logArea.add(logGrid2);
 		logWindow.add(logArea);
@@ -51,33 +59,59 @@ public class ModPrint {
 		ticketBox = new JTextField();
 		ticketBox.setActionCommand("🔎 Search");
 		ticketBox.addActionListener(new ButtonListener());
+		ticketBox.setBackground(bg);
+		ticketBox.setForeground(fg);
 		JButton b1 = new JButton("🔎 Search");
 		b1.addActionListener(new ButtonListener());
-		logGrid.add(new JLabel("Enter Ticket #:"));
+		b1.setBackground(accent);
+		b1.setForeground(fg);
+		JLabel enterTicket = new JLabel("Enter Ticket #:");
+		enterTicket.setForeground(fg);
+		logGrid.add(enterTicket);
 		logGrid.add(ticketBox);
 		logGrid.add(b1);
 		logGrid.setBorder(bottomBorder);
 		
 		ticketBox2 = new JTextField();
 		ticketBox2.setEditable(false);
-		logGrid2.add(new JLabel("Ticket #:"));
+		ticketBox2.setBackground(bg);
+		ticketBox2.setForeground(fg);
+		JLabel ticket = new JLabel("Ticket #:");
+		ticket.setForeground(fg);
+		logGrid2.add(ticket);
 		logGrid2.add(ticketBox2);
 		
 		dateBox = new JTextField();
-		logGrid2.add(new JLabel("Date:"));
+		dateBox.setBackground(bg);
+		dateBox.setForeground(fg);
+		JLabel date = new JLabel("Date:");
+		date.setForeground(fg);
+		logGrid2.add(date);
 		logGrid2.add(dateBox);
 		
 		netIDBox = new JTextField();
-		logGrid2.add(new JLabel("NetID:"));
+		netIDBox.setBackground(bg);
+		netIDBox.setForeground(fg);
+		JLabel netid = new JLabel("NetID:");
+		netid.setForeground(fg);
+		logGrid2.add(netid);
 		logGrid2.add(netIDBox);
 		
 		projectBox = new JTextField();
-		logGrid2.add(new JLabel("Project Name:"));
+		projectBox.setBackground(bg);
+		projectBox.setForeground(fg);
+		JLabel project = new JLabel("Project Name:");
+		project.setForeground(fg);
+		logGrid2.add(project);
 		logGrid2.add(projectBox);
 		
 		String[] mats = {"PETG", "PLA", "TPU", "ABS", "Other"};
 		materialBox = new JComboBox<String>(mats);
-		logGrid2.add(new JLabel("Material:"));
+		materialBox.setBackground(bg);
+		materialBox.setForeground(fg);
+		JLabel material = new JLabel("Material:");
+		material.setForeground(fg);
+		logGrid2.add(material);
 		logGrid2.add(materialBox);
 		
 		NumberFormat fmt = NumberFormat.getIntegerInstance();
@@ -85,15 +119,22 @@ public class ModPrint {
 		formatter.setMinimum(0);
 		formatter.setMaximum(999999999);
 		amountBox = new JFormattedTextField(formatter);
-		logGrid2.add(new JLabel("Amount (g):"));
 		amountBox.setActionCommand("Submit");
 		amountBox.addActionListener(new ButtonListener());
+		amountBox.setBackground(bg);
+		amountBox.setForeground(fg);
+		JLabel amount = new JLabel("Amount (g):");
+		amount.setForeground(fg);
+		logGrid2.add(amount);
 		logGrid2.add(amountBox);
 		logGrid2.setBorder(bottomBorder);
 		
 //		Create submit button
 		JPanel submitArea = new JPanel(new BorderLayout());
+		submitArea.setBackground(bg);
 		JButton submit = new JButton("Submit");
+		submit.setBackground(accent);
+		submit.setForeground(fg);
 		submit.addActionListener(new ButtonListener());
 		submitArea.add(submit, BorderLayout.EAST);
 		logWindow.add(submitArea, BorderLayout.SOUTH);
