@@ -21,11 +21,11 @@ public class ColorRenderer extends JLabel implements TableCellRenderer {
 		int currentValue = Integer.parseInt(table.getValueAt(row, table.getColumnCount() - 1).toString());
 		
 		if (currentValue <= warningValue)
-			bg = Color.YELLOW;
+			fg = Color.YELLOW;
 		if (currentValue <= warningValue / 2)
-			bg = Color.ORANGE;
+			fg = Color.ORANGE;
 		if (currentValue <= 0)
-			bg = Color.RED;
+			fg = Color.RED;
 		
 		setBackground(bg);
 		setForeground(fg);
