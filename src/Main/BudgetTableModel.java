@@ -1,7 +1,6 @@
 package Main;
 
 import java.util.Vector;
-
 import javax.swing.table.AbstractTableModel;
 
 public class BudgetTableModel extends AbstractTableModel {
@@ -12,19 +11,15 @@ public class BudgetTableModel extends AbstractTableModel {
 	public int getColumnCount() {
 		return columnNames.length;
 	}
-
 	public int getRowCount() {
 		return data.size();
 	}
-	
 	public String getColumnName(int col) {
 		return columnNames[col];
 	}
-	
 	public Object getValueAt(int row, int col) {
 		return data.get(row).get(col);
 	}
-	
 	public boolean isCsllEditable(int row, int col) {
 		return false;
 	}

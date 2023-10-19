@@ -17,6 +17,7 @@ public class Settings {
 	private static Integer student_budget = 500;
 	private static Integer course_budget = 3000;
 	private static Integer course_per_stud = 200;
+	private static Integer warningValue = 200;
 	private static String colors = "Dark";
 	private static String oldColors = "Dark";
 
@@ -288,6 +289,9 @@ public class Settings {
 	}
 	public static String getColorScheme() {
 		return colors;
+	}
+	public static int getWarningValue() {
+		return warningValue;
 	}
 	
 	public static void setDbDirectory(String dir) {
