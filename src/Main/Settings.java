@@ -150,6 +150,10 @@ public class Settings {
 		settingsEditor.pack();
 		settingsEditor.setVisible(true);
 		settingsEditor.setLocation(new Point(Main.mainWindow.getLocation().x + (Main.mainWindow.getWidth() - settingsEditor.getWidth()) / 2, Main.mainWindow.getLocation().y + (Main.mainWindow.getHeight() - settingsEditor.getHeight()) / 2));
+		
+//		Reposition window if created before main window
+		if (settingsEditor.getLocation().x + settingsEditor.getWidth() / 2 == 0 && settingsEditor.getLocation().y + settingsEditor.getHeight() / 2 == 0)
+			settingsEditor.setLocation(new Point((Toolkit.getDefaultToolkit().getScreenSize().width - settingsEditor.getWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - settingsEditor.getHeight()) / 2));
 	}
 	public static void submit() {
 //		Read input fields
