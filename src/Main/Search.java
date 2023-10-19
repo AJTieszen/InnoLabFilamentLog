@@ -68,8 +68,10 @@ public class Search {
 		tablePanel.setBackground(bg);
 		centerTitles[0].setLayout(new BoxLayout(centerTitles[0], BoxLayout.X_AXIS));
 		centerTitles[0].setBackground(bg);
+		centerTitles[0].removeAll();
 		centerTitles[1].setLayout(new BoxLayout(centerTitles[1], BoxLayout.X_AXIS));
 		centerTitles[1].setBackground(bg);
+		centerTitles[1].removeAll();
 		
 		students = new JTable(new BudgetTableModel());
 		projects = new JTable(new ProjectTableModel());
