@@ -118,7 +118,10 @@ public class ModUser {
 		
 //		Create submit button
 		JPanel submitArea = new JPanel(new BorderLayout());
+		submitArea.setBackground(bg);
 		JButton submit = new JButton("Submit");
+		submit.setBackground(accent);
+		submit.setForeground(fg);
 		submit.addActionListener(new ButtonListener());
 		submitArea.add(submit, BorderLayout.EAST);
 		logWindow.add(submitArea, BorderLayout.SOUTH);
