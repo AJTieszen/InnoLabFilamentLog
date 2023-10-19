@@ -138,6 +138,10 @@ public class Search {
 		students.setBackground(bg);
 		students.setForeground(fg);
 		
+		for(int i = 0; i < students.getColumnCount(); i ++ ) {
+			students.getColumnModel().getColumn(i).setCellRenderer(new ColorRenderer());
+		}
+		
 		projects.getTableHeader().setBackground(accent);
 		projects.getTableHeader().setForeground(fg);
 		projects.setBackground(bg);

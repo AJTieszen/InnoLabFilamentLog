@@ -26,7 +26,7 @@ public class ColorRenderer extends JLabel implements TableCellRenderer {
 		if (currentValue <= warningValue / 2)
 			fg = Color.ORANGE;
 		if (currentValue <= 0)
-			fg = Color.RED.brighter();
+			fg = new Color(255, 50, 50);
 		
 //		Increase contrast if too low
 		int contrast = (contrast(bg, fg));
@@ -37,7 +37,7 @@ public class ColorRenderer extends JLabel implements TableCellRenderer {
 				fg = fg.brighter();
 		}
 		
-//		
+//		Apply conditional formatting
 		setForeground(fg);
 		setText(value.toString());
 		return this;
