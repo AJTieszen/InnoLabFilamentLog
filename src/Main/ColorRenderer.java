@@ -11,17 +11,25 @@ public class ColorRenderer extends JLabel implements TableCellRenderer {
 	private static final long serialVersionUID = 1L;
 	public ColorRenderer() {
 		setOpaque(true);
-		
-		System.out.println("ColorRenderer Created");
 	}
 	
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
 			int row, int column) {
-		setBackground(Color.CYAN);
-		setForeground(Color.ORANGE);
+		Color bg = Main.bg;
+		Color fg = Main.fg;
+		int warningValue = Settings.getWarningValue();
+		int currentValue = Integer.parseInt(table.getValueAt(row, table.getColumnCount() - 1).toString());
 		
-		System.out.println("ColorRender Applied");
+		if (currentValue <= warningValue)
+			bg = Color.YELLOW;
+		if (currentValue <= warningValue / 2)
+			bg = Color.ORANGE;
+		if (currentValue <= 0)
+			bg = Color.RED;
+		
+		setBackground(bg);
+		setForeground(fg);
+		setText(value.toString());
 		return this;
 	}
-
 }
