@@ -11,8 +11,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 public class Settings {
-	private static String db_directory = "D:/test";
-	private static String db_file = "test.accdb";
+	private static String db_directory = "C:/FilamentLogs";
+	private static String db_file = "FilamentLog 20xx.accdb";
 	
 	private static Integer student_budget = 500;
 	private static Integer course_budget = 3000;
