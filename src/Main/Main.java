@@ -24,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 
 public class Main {
+	int test = 500;
 	public static final int FRAME_WIDTH = 1366;
 	public static final int FRAME_HEIGHT = 768;
 	public static final int MIN_FRAME_WIDTH = 853;
