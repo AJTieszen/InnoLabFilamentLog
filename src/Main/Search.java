@@ -151,11 +151,11 @@ public class Search {
 		ResultSet studentResults = null;
 		ResultSet projectResults = null;
 		
-		projectResults = Database.searchPartial(term, field, "Projects");
+		projectResults = Database.searchPartial(term, field, "Projects", "date desc");
 		if (field.equalsIgnoreCase("netid"))
 			field = "id";
 		if (field.equalsIgnoreCase("id") || field.equalsIgnoreCase("name"))
-			studentResults = Database.searchPartial(term, field, "Budgets");
+			studentResults = Database.searchPartial(term, field, "Budgets", "remaining asc");
 		
 //		Display search results
 		try {

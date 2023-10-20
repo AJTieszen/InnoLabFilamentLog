@@ -455,6 +455,31 @@ public class Database {
 		
 		return result;
 	}
+	public static ResultSet searchPartial(String target, String column, String table, String sortby) {
+		ResultSet result = null;
+		try {
+//    		Create database connection
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+	    	String connPath = "jdbc:ucanaccess://" + Settings.getFilePath() + ";singleconnection=true";
+	    	db_connection = DriverManager.getConnection(connPath);
+	    	Statement stmt = db_connection.createStatement();
+	    	
+//	    	check if user is already in database
+	    	String sql = "select * from " + table + " where " + column + " like '%" + target + "%' order by " + sortby;
+	    	System.out.println(sql);
+	    	result = stmt.executeQuery(sql);
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+				if (db_connection != null) db_connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}				
+		}
+		
+		return result;
+	}
 	
 	public static String truncate(String s, int l) {
 		if (s.length() > l) {
