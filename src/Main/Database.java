@@ -46,18 +46,18 @@ public class Database {
 	    			System.out.println("INFO: Table already exists.");
 	    		}
 	    		else {
-	    			e.printStackTrace();
+	    			ErrorLog.write(e);
 	    		}
 	    	}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		}
 		finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}			
 		}
 	}
@@ -102,13 +102,13 @@ public class Database {
 	    	}
 	    	
 		} catch (Exception e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		}
 		finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}			
 		}
 	}
@@ -150,12 +150,12 @@ public class Database {
 	    		JOptionPane.showMessageDialog(null, "User " + name + " already exists.");	    		
 	    	}
 		} catch(Exception e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}				
 		}
 	}
@@ -191,12 +191,12 @@ public class Database {
 	    		JOptionPane.showMessageDialog(null, "User " + netid + " not found.");	    		
 	    	}
 		} catch(Exception e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}				
 		}
 	}
@@ -227,12 +227,12 @@ public class Database {
 	    		JOptionPane.showMessageDialog(null, "User " + netid + " not found.");	    		
 	    	}
 		} catch(Exception e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}				
 		}
 	}
@@ -266,12 +266,12 @@ public class Database {
 	    		JOptionPane.showMessageDialog(null, "User " + netid + " not found.");	    		
 	    	}
 		} catch(Exception e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}				
 		}
 	}
@@ -290,12 +290,12 @@ public class Database {
 	    	ResultSet result = stmt.executeQuery(sql);
 	    	userExists = result.next();
 		} catch(Exception e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}				
 		}
     	return userExists;
@@ -341,12 +341,12 @@ public class Database {
 	    		Main.projectTable.setValueAt(result.getObject("material"), row, 6);
 	    	}
 		} catch (Exception e) {
-			e.printStackTrace();			
+			ErrorLog.write(e);			
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}			
 		}
 	}
@@ -371,12 +371,12 @@ public class Database {
 	    		Main.budgetTable.setValueAt(result.getObject("remaining"), row, 4);
 	    	}
 		} catch (Exception e) {
-			e.printStackTrace();			
+			ErrorLog.write(e);			
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}			
 		}
 	}
@@ -396,12 +396,12 @@ public class Database {
 	    	result.next();
 	    	userName = result.getObject("name").toString();
 		} catch(Exception e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}				
 		}
 		return userName;
@@ -419,12 +419,12 @@ public class Database {
 	    	String sql = "select * from " + table + " where " + column + " = '" + target + "'";
 	    	result = stmt.executeQuery(sql);
 		} catch(Exception e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
 			}				
 		}
 		
@@ -444,12 +444,37 @@ public class Database {
 	    	System.out.println(sql);
 	    	result = stmt.executeQuery(sql);
 		} catch(Exception e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		} finally {
 	    	try {
 				if (db_connection != null) db_connection.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				ErrorLog.write(e);
+			}				
+		}
+		
+		return result;
+	}
+	public static ResultSet searchPartial(String target, String column, String table, String sortby) {
+		ResultSet result = null;
+		try {
+//    		Create database connection
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+	    	String connPath = "jdbc:ucanaccess://" + Settings.getFilePath() + ";singleconnection=true";
+	    	db_connection = DriverManager.getConnection(connPath);
+	    	Statement stmt = db_connection.createStatement();
+	    	
+//	    	check if user is already in database
+	    	String sql = "select * from " + table + " where " + column + " like '%" + target + "%' order by " + sortby;
+	    	System.out.println(sql);
+	    	result = stmt.executeQuery(sql);
+		} catch(Exception e) {
+			ErrorLog.write(e);
+		} finally {
+	    	try {
+				if (db_connection != null) db_connection.close();
+			} catch (Exception e) {
+				ErrorLog.write(e);
 			}				
 		}
 		

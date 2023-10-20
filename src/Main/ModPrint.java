@@ -196,7 +196,7 @@ public class ModPrint {
 				ticketFound = true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		}
 	}
 	private static void submit() {
