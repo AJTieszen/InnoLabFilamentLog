@@ -305,7 +305,9 @@ public class Database {
 		Main.statMessage.setText("Refreshing Database");
 		Main.projectTable.setModel(new ProjectTableModel());
 		Main.budgetTable.setModel(new BudgetTableModel());
-		Main.budgetTable.getColumnModel().getColumn(4).setCellRenderer(new ColorRenderer());;
+		for (int i = 0; i < Main.budgetTable.getColumnCount(); i ++) {
+			Main.budgetTable.getColumnModel().getColumn(i).setCellRenderer(new ColorRenderer());
+		}
 		Database.readProjects();
 		Database.readBudgets();
 		

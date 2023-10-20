@@ -177,7 +177,6 @@ public class Main {
 		budgetTable.setBackground(bg);
 		budgetTable.setForeground(fg);
 		budgetTable.setGridColor(fg);
-		budgetTable.getColumnModel().getColumn(4).setCellRenderer(new ColorRenderer());
 		budgetTable.getTableHeader().setBackground(accent);
 		budgetTable.getTableHeader().setForeground(fg);
 		
