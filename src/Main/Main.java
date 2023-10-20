@@ -24,7 +24,6 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 
 public class Main {
-	int test = 500;
 	public static final int FRAME_WIDTH = 1366;
 	public static final int FRAME_HEIGHT = 768;
 	public static final int MIN_FRAME_WIDTH = 853;
@@ -49,6 +48,7 @@ public class Main {
 	public static final File initFile = new File("3D Print Log.ini");	
 	
 	public static void main(String[] args) {
+		System.out.println("Give Up Control");
 		statMessage = new JLabel("Starting up");
 		printerIcon = new ImageIcon("Ender3Logo.png");
 		mainWindow = new JFrame("Innovation Lab Print Log");
