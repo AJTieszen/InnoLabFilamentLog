@@ -182,7 +182,7 @@ public class Search {
 			students.setAutoCreateRowSorter(true);
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		}
 	}
 	

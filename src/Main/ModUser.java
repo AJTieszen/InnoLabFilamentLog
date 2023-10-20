@@ -169,7 +169,7 @@ public class ModUser {
 				userFound = true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorLog.write(e);
 		}
 	}
 	
