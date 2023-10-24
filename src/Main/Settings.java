@@ -191,6 +191,7 @@ public class Settings {
 		
 //		Close window
 		settingsEditor.dispose();
+		Database.setup();
 		Database.refresh();
 		Main.statMessage.setText("OK");
 	}
