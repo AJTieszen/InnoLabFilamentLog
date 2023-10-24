@@ -331,6 +331,7 @@ public class Settings {
 	public static void browseFile() {
 //		Setup file chooser
 		JFileChooser fileDialog = new JFileChooser();
+		fileDialog.setFileFilter(new Filter());
 		File path = new File(db_directory);
 		if (path.exists() && path.isDirectory())
 			fileDialog.setCurrentDirectory(path);
