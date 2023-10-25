@@ -14,7 +14,6 @@ import java.io.File;
 import java.net.URI;
 
 import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
