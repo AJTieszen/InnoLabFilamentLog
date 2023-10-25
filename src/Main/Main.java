@@ -240,7 +240,7 @@ public class Main {
 		if (Desktop.isDesktopSupported()) {
 			Desktop desktop = Desktop.getDesktop();
 			try {
-	            URI uri = new URI("https://www.tutorialspoint.com/index.htm");
+	            URI uri = new URI("https://github.com/AJTieszen/InnoLabFilamentLog/releases");
 	            desktop.browse(uri);				
 			} catch(Exception e) {
 				ErrorLog.write(e);
