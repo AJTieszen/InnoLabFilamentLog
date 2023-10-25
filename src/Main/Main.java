@@ -13,16 +13,22 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URI;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
 public class Main {
@@ -50,7 +56,7 @@ public class Main {
 	public static final File initFile = new File("3D Print Log.ini");	
 	
 	public static void main(String[] args) {
-		System.out.println("Give Up Control");
+//		System.out.println("Give Up Control");
 		statMessage = new JLabel("Starting up");
 		printerIcon = new ImageIcon("Ender3Logo.png");
 		mainWindow = new JFrame("Innovation Lab Print Log");
@@ -88,6 +94,16 @@ public class Main {
 		mainWindow.setLayout(new BorderLayout());
 		mainWindow.setBackground(bg);
 		
+//		Setup ctrl-f search
+		ActionMap am = mainWindow.getRootPane().getActionMap();
+		am.put("search", new AbstractAction() {
+			private static final long serialVersionUID = 1L;
+			public void actionPerformed(ActionEvent e) {
+				Search.show();
+			}
+		});
+		InputMap im = mainWindow.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		im.put(KeyStroke.getKeyStroke("control F"), "search");
 		
 //		Create status bar
 		JPanel statBar = new JPanel();
