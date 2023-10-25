@@ -30,6 +30,7 @@ public class PrepWorkshop {
 		logWindow.setSize(640, 480);
 		logWindow.setLayout(new BorderLayout());
 		logWindow.setIconImage(Main.printerIcon.getImage());
+		logWindow.setAlwaysOnTop(true);
 		logWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 //		Create main section
