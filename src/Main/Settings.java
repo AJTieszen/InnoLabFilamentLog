@@ -71,7 +71,7 @@ public class Settings {
 		budgetWarning = new JTextField(warningValue.toString());
 		budgetWarning.setBackground(bg);
 		budgetWarning.setForeground(fg);
-		String[] schemes = {"Light", "Light - Blue", "Dark", "Dark - Blue"};
+		String[] schemes = {"Light", "Light - Blue", "Dark", "Dark - Blue", "Halloween"};
 		colorScheme = new JComboBox<String>(schemes);
 		colorScheme.setBackground(bg);
 		colorScheme.setForeground(fg);
