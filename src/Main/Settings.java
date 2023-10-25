@@ -3,6 +3,7 @@ package Main;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -90,6 +91,12 @@ public class Settings {
 		database.setForeground(fg);
 		settingsGrid1.add(database);
 		settingsGrid1.add(fileName);
+		settingsGrid1.add(new JLabel());
+		JButton browse = new JButton("Browse");
+		browse.addActionListener(new ButtonListener());
+		browse.setBackground(accent);
+		browse.setForeground(fg);
+		settingsGrid1.add(browse);
 		
 		JPanel settingsGrid2 = new JPanel(new GridLayout(0, 2, 20, 2));
 		settingsGrid2.setBackground(bg);
@@ -184,6 +191,8 @@ public class Settings {
 		
 //		Close window
 		settingsEditor.dispose();
+		Database.setup();
+		Database.refresh();
 		Main.statMessage.setText("OK");
 	}
 	
@@ -319,11 +328,36 @@ public class Settings {
 		writeFile();
 	}
 	
+	public static void browseFile() {
+//		Setup file chooser
+		JFileChooser fileDialog = new JFileChooser();
+		fileDialog.setFileFilter(new Filter());
+		File path = new File(db_directory);
+		if (path.exists() && path.isDirectory())
+			fileDialog.setCurrentDirectory(path);
+		
+//		Show file chooser
+		int state = fileDialog.showDialog(settingsEditor, "Select");
+		
+		if (state == JFileChooser.APPROVE_OPTION) {
+			File chosen = fileDialog.getSelectedFile();
+			db_directory = chosen.getPath();
+			db_file = chosen.getName();
+			db_directory = db_directory.replace("\\", "/").replace("/" + db_file, "");
+			
+			fileDir.setText(db_directory);
+			fileName.setText(db_file);
+		}
+	}
+	
 	static class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand() == "Submit") {
 				Settings.submit();
 			}
+			if (e.getActionCommand() == "Browse") {
+				Settings.browseFile();
+			}
 		}
-	}
+	}	
 }
