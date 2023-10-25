@@ -251,6 +251,12 @@ public class Main {
 			accent = new Color(0, 32, 92);
 			fg = Color.WHITE;
 		}
+		if (scheme.equalsIgnoreCase("Halloween")) {
+			bg = Color.BLACK;
+			accent = new Color(215, 105, 0);
+			fg = Color.WHITE;
+			
+		}
 	}
 	private static void checkUpdates() {
 		if (Desktop.isDesktopSupported()) {
