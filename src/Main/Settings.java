@@ -197,10 +197,11 @@ public class Settings {
 		warningValue = warningval;
 		oldColors = colors;
 		colors = clr;
-		
-		System.out.println(oldColors + " | " + colors);
-		
 		writeFile();
+		
+		if (oldColors != colors) {
+			Main.restart();
+		}
 		
 //		Close window
 		settingsEditor.dispose();

@@ -38,17 +38,17 @@ public class Main {
 	public static final int MIN_FRAME_HEIGHT = 640;
 	public static final int L_PANEL_WIDTH = 250;
 	
-	public static Color bg = Color.DARK_GRAY;
-	public static Color accent = Color.BLACK;
-	public static Color fg = Color.WHITE;
+	public static Color bg;
+	public static Color accent;
+	public static Color fg;
 	
 	public static JFrame mainWindow;
 
 	public static ImageIcon innoLabIcon;
 	public static ImageIcon printerIcon;
 	
-	public static JTable projectTable = new JTable(new ProjectTableModel());
-	public static JTable budgetTable = new JTable(new BudgetTableModel());
+	public static JTable projectTable;
+	public static JTable budgetTable;
 	public static boolean showNetID = true;
 	
 	public static JLabel statMessage;
@@ -77,7 +77,7 @@ public class Main {
 		Database.refresh();
 	}
 	
-	public static void createLayout() {
+	private static void createLayout() {
 //		Set color scheme
 		setColorScheme(Settings.getColorScheme());
 		
@@ -93,6 +93,9 @@ public class Main {
 		mainWindow.setMinimumSize(new Dimension(MIN_FRAME_WIDTH, MIN_FRAME_HEIGHT));
 		mainWindow.setLayout(new BorderLayout());
 		mainWindow.setBackground(bg);
+
+		 projectTable = new JTable(new ProjectTableModel());
+		 budgetTable = new JTable(new BudgetTableModel());
 		
 //		Setup ctrl-f search
 		ActionMap am = mainWindow.getRootPane().getActionMap();
@@ -264,6 +267,10 @@ public class Main {
 		} else {
 			ErrorLog.write(new Exception("Desktop is not supported on this device."));
 		}
+	}
+	public static void restart() {
+		mainWindow.dispose();
+		main(null);
 	}
 	
  	static class ButtonListener implements ActionListener {
