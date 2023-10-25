@@ -20,14 +20,15 @@ public class Settings {
 	private static Integer course_per_stud = 200;
 	private static Integer warningValue = 200;
 	
-	private static String colors = "Dark";
-	private static String oldColors = "Dark";
+	private static String colors = "Dark - Blue";
+	private static String oldColors = "Dark - Blue";
 
 	private static JTextField fileDir;
 	private static JTextField fileName;
 	private static JTextField studentBudget;
 	private static JTextField courseBudget;
 	private static JTextField coursePerStud;
+	private static JTextField budgetWarning;
 	private static JComboBox<String> colorScheme;
 	
 	private static JFrame settingsEditor;
@@ -67,6 +68,9 @@ public class Settings {
 		coursePerStud = new JTextField(course_per_stud.toString());
 		coursePerStud.setBackground(bg);
 		coursePerStud.setForeground(fg);
+		budgetWarning = new JTextField(warningValue.toString());
+		budgetWarning.setBackground(bg);
+		budgetWarning.setForeground(fg);
 		String[] schemes = {"Light", "Light - Blue", "Dark", "Dark - Blue"};
 		colorScheme = new JComboBox<String>(schemes);
 		colorScheme.setBackground(bg);
@@ -119,6 +123,10 @@ public class Settings {
 		budgets.setForeground(fg);
 		settingsGrid2.add(budgets);
 		settingsGrid2.add(coursePerStud);
+		budgets = new JLabel("Budget Warning Value");
+		budgets.setForeground(fg);
+		settingsGrid2.add(budgets);
+		settingsGrid2.add(budgetWarning);
 		
 		JPanel settingsGrid3 = new JPanel(new GridLayout(0, 2, 20, 2));
 		settingsGrid3.setBackground(bg);
@@ -172,11 +180,13 @@ public class Settings {
 		String sb = studentBudget.getText().trim();
 		String cb = courseBudget.getText().trim();
 		String cbp = coursePerStud.getText().trim();
+		String wv = budgetWarning.getText().trim();
 		String clr = colorScheme.getSelectedItem().toString().trim();
 		System.out.println(clr);
 		int sbudget = Integer.parseInt(sb);
 		int cbudget = Integer.parseInt(cb);
 		int cpbudget = Integer.parseInt(cbp);
+		int warningval = Integer.parseInt(wv);
 		
 //		Apply settings
 		db_directory = dir;
@@ -184,6 +194,7 @@ public class Settings {
 		student_budget = sbudget;
 		course_budget = cbudget;
 		course_per_stud = cpbudget;
+		warningValue = warningval;
 		oldColors = colors;
 		colors = clr;
 		
@@ -246,6 +257,14 @@ public class Settings {
 			course_per_stud = Integer.parseInt(lineScanner.next());
 			lineScanner.close();
 			
+//			Read budget warning value
+			line = scanner.nextLine();
+			lineScanner = new Scanner(line);
+			lineScanner.useDelimiter("= ");
+			lineScanner.next();
+			warningValue = Integer.parseInt(lineScanner.next());
+			lineScanner.close();
+			
 //			Read dark mode status
 			line = scanner.nextLine();
 			line = scanner.nextLine();
@@ -272,6 +291,7 @@ public class Settings {
 			writer.write("Student Budget (g)        = " + student_budget + "\n");
 			writer.write("Class Budget (g)          = " + course_budget + "\n");
 			writer.write("Class Budget Per Student  = " + course_per_stud + "\n");
+			writer.write("Budget Warning Value      = " + course_per_stud + "\n");
 			writer.write("Appearance:\n");
 			writer.write("Color Scheme              = " + colors + "\n");
 			writer.close();
