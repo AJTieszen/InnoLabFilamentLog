@@ -30,7 +30,7 @@ public class Settings {
 	private static JTextField coursePerStud;
 	private static JComboBox<String> colorScheme;
 	
-	private static JFrame settingsEditor;
+	private static JFrame settingsEditor = new JFrame("Settings");
 	
 	public static void show() {
 //		Copy colors from main
@@ -43,7 +43,6 @@ public class Settings {
 		oldColors = colors;
 		
 //		Setup Window
-		settingsEditor = new JFrame("Settings");
 		settingsEditor.setSize(640, 480);
 		settingsEditor.setLayout(new BorderLayout());
 		settingsEditor.setBackground(bg);
