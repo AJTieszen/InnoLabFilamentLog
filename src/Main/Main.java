@@ -2,6 +2,7 @@ package Main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -10,6 +11,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URI;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -117,7 +119,7 @@ public class Main {
 		leftPanel.add(centerImage);
 
 //		Create Button Panel
-		String[] labels = {"🔎 Search", "Log new print", "Modify print", "Log filament brought", "Prepare workshop", "Show / hide NetID", "Override user info", "Refresh database", "New database", "⚙ Local settings"};
+		String[] labels = {"🔎 Search", "Log new print", "Modify print", "Log filament brought", "Prepare workshop", "Show / hide NetID", "Override user info", "Refresh database", "New database", "⚙ Local settings", "⟳ Check for updates"};
 		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1, 20, 10));
 		buttonPanel.setBackground(bg);
 		for(String label : labels) {
@@ -234,6 +236,19 @@ public class Main {
 			fg = Color.WHITE;
 		}
 	}
+	private static void checkUpdates() {
+		if (Desktop.isDesktopSupported()) {
+			Desktop desktop = Desktop.getDesktop();
+			try {
+	            URI uri = new URI("https://www.tutorialspoint.com/index.htm");
+	            desktop.browse(uri);				
+			} catch(Exception e) {
+				ErrorLog.write(e);
+			}
+		} else {
+			ErrorLog.write(new Exception("Desktop is not supported on this device."));
+		}
+	}
 	
  	static class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -266,6 +281,9 @@ public class Main {
 			}
 			if (e.getActionCommand() == "⚙ Local settings") {
 				Settings.show();
+			}
+			if (e.getActionCommand() == "⟳ Check for updates") {
+				Main.checkUpdates();
 			}
 		}
 	}
