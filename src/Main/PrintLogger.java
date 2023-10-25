@@ -48,7 +48,6 @@ public class PrintLogger {
 		logWindow.setIconImage(Main.printerIcon.getImage());
 		logWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		logWindow.setAlwaysOnTop(true);
-		ButtonListener bl = new ButtonListener();
 		
 //		Create log mode button
 		JPanel logPanel = new JPanel();
@@ -62,7 +61,7 @@ public class PrintLogger {
 		classPrint.setBackground(bg);
 		classPrint.setForeground(fg);
 		classPrint.setActionCommand("Switch");
-		classPrint.addActionListener(bl);
+		classPrint.addActionListener(new ButtonListener());
 		toggleP1.add(classPrint);
 		logPanel.add(toggleP1);
 		
@@ -132,7 +131,7 @@ public class PrintLogger {
 		amount.setForeground(fg);
 		logGrid.add(amount);
 		amountBox.setActionCommand("Submit");
-		amountBox.addActionListener(bl);
+		amountBox.addActionListener(new ButtonListener());
 		logGrid.add(amountBox);
 		
 		courseIDLabel = new JLabel("Course or Organization ID:");
@@ -152,7 +151,7 @@ public class PrintLogger {
 		formatter.setMaximum(999);
 		participantBox = new JFormattedTextField(formatter);
 		participantBox.setActionCommand("Submit");
-		participantBox.addActionListener(bl);
+		participantBox.addActionListener(new ButtonListener());
 		participantBox.setBackground(bg);
 		participantBox.setForeground(fg);
 		
@@ -163,7 +162,7 @@ public class PrintLogger {
 		JPanel submitButton = new JPanel(new BorderLayout());
 		submitButton.setBackground(bg);
 		JButton submit = new JButton("Submit");
-		submit.addActionListener(bl);
+		submit.addActionListener(new ButtonListener());
 		submit.setBackground(accent);
 		submit.setForeground(fg);
 		submitButton.add(submit, BorderLayout.EAST);
