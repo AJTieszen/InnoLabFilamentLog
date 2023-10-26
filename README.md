@@ -8,7 +8,7 @@ Requires Java 17 or newer, which can be download here:\
 [Oracle Java](https://www.oracle.com/java/technologies/downloads/)\
 [OpenJDK](https://openjdk.org/)\
 \
-Developers: This program uses UCanAccess to connect to its database. Version 5.0.1 is included in the project and already set up for Eclipse users.
+Developers: This program uses UCanAccess to connect to its database. Version 5.0.1 is included in the project.
 
 ## Operating Instructions
 
