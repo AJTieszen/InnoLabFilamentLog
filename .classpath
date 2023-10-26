@@ -6,27 +6,27 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="UCanAccess Database Driver/lib/commons-lang-2.6.jar">
+	<classpathentry kind="lib" path="D:/Documents/Eclipse/Filament Log/UCanAccess Database Driver/lib/commons-lang3-3.8.1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="UCanAccess Database Driver/lib/commons-logging-1.1.1.jar">
+	<classpathentry kind="lib" path="D:/Documents/Eclipse/Filament Log/UCanAccess Database Driver/lib/commons-logging-1.2.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="UCanAccess Database Driver/lib/hsqldb.jar">
+	<classpathentry kind="lib" path="D:/Documents/Eclipse/Filament Log/UCanAccess Database Driver/lib/hsqldb-2.5.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="UCanAccess Database Driver/lib/jackcess-2.0.8.jar">
+	<classpathentry kind="lib" path="D:/Documents/Eclipse/Filament Log/UCanAccess Database Driver/lib/jackcess-3.0.1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="UCanAccess Database Driver/lib/ucanaccess-2.0.9.4.jar">
+	<classpathentry kind="lib" path="D:/Documents/Eclipse/Filament Log/UCanAccess Database Driver/lib/ucanaccess-5.0.1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
