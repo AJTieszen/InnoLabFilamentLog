@@ -18,7 +18,7 @@ public class Settings {
 	private static Integer student_budget = 500;
 	private static Integer course_budget = 3000;
 	private static Integer course_per_stud = 200;
-	private static Integer warningValue = 200;
+	private static Integer warning_value = 200;
 	
 	private static String colors = "Dark - Blue";
 	private static String oldColors = "Dark - Blue";
@@ -68,7 +68,7 @@ public class Settings {
 		coursePerStud = new JTextField(course_per_stud.toString());
 		coursePerStud.setBackground(bg);
 		coursePerStud.setForeground(fg);
-		budgetWarning = new JTextField(warningValue.toString());
+		budgetWarning = new JTextField(warning_value.toString());
 		budgetWarning.setBackground(bg);
 		budgetWarning.setForeground(fg);
 		String[] schemes = {"Light", "Light - Blue", "Dark", "Dark - Blue", "Halloween"};
@@ -194,7 +194,7 @@ public class Settings {
 		student_budget = sbudget;
 		course_budget = cbudget;
 		course_per_stud = cpbudget;
-		warningValue = warningval;
+		warning_value = warningval;
 		oldColors = colors;
 		colors = clr;
 		writeFile();
@@ -263,7 +263,7 @@ public class Settings {
 			lineScanner = new Scanner(line);
 			lineScanner.useDelimiter("= ");
 			lineScanner.next();
-			warningValue = Integer.parseInt(lineScanner.next());
+			warning_value = Integer.parseInt(lineScanner.next());
 			lineScanner.close();
 			
 //			Read dark mode status
@@ -292,7 +292,7 @@ public class Settings {
 			writer.write("Student Budget (g)        = " + student_budget + "\n");
 			writer.write("Class Budget (g)          = " + course_budget + "\n");
 			writer.write("Class Budget Per Student  = " + course_per_stud + "\n");
-			writer.write("Budget Warning Value      = " + course_per_stud + "\n");
+			writer.write("Budget Warning Value      = " + warning_value + "\n");
 			writer.write("Appearance:\n");
 			writer.write("Color Scheme              = " + colors + "\n");
 			writer.close();
@@ -323,7 +323,7 @@ public class Settings {
 		return colors;
 	}
 	public static int getWarningValue() {
-		return warningValue;
+		return warning_value;
 	}
 	
 	public static void setDbDirectory(String dir) {
