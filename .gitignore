@@ -1,2 +1,4 @@
 /bin/
-/3D Print Log.ini
+/.settings
+*.ini
+*.log
