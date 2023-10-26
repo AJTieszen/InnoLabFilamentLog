@@ -180,15 +180,15 @@ public class PrintLogger {
 		Main.statMessage.setText("Writing Print to database...");
 		
 //		Read input values
-		String date = dateBox.getText().trim();
-		String netid = Database.truncate(idBox.getText(), 10).trim();
-		String name = Database.truncate(nameBox.getText(), 60).trim();
-		String project = projectBox.getText().trim();
-		String ticket = ticketBox.getText().trim();
-		String material = materialBox.getSelectedItem().toString().trim();
-		String amt = amountBox.getText().replace(",", "").trim();
-		String course = courseBox.getText().trim();
-		String courseid = courseIDBox.getText().trim();
+		String date = Database.sanitize(dateBox.getText().trim());
+		String netid = Database.sanitize(Database.truncate(idBox.getText(), 10).trim());
+		String name = Database.sanitize(Database.truncate(nameBox.getText(), 60).trim());
+		String project = Database.sanitize(projectBox.getText().trim());
+		String ticket = Database.sanitize(ticketBox.getText().trim());
+		String material = Database.sanitize(materialBox.getSelectedItem().toString().trim());
+		String amt = Database.sanitize(amountBox.getText().replace(",", "").trim());
+		String course = Database.sanitize(courseBox.getText().trim());
+		String courseid = Database.sanitize(courseIDBox.getText().trim());
 		
 //		Clean up input fields
 		if (amt.length() == 0 || material.length() == 0 || ticket.length() ==0 || project.length() == 0 || name.length() == 0 || netid.length() == 0 || (forClass && course.length() == 0 && courseid.length() == 0)) {

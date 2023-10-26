@@ -88,8 +88,8 @@ public class PrepWorkshop {
 	}
 
 	public static void submit() {
-		String name = nameBox.getText().trim();
-		String id = idBox.getText().trim();
+		String name = Database.sanitize(nameBox.getText().trim());
+		String id = Database.sanitize(idBox.getText().trim());
 		String participants = participantsBox.getText().trim();
 		
 //		Clean up inputs

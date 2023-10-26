@@ -297,7 +297,7 @@ public class Main {
 				BroughtFilament.show();
 			}
 			if (e.getActionCommand() == "Override user info") {
-				ModUser.show();
+				OverrideUser.show();
 			}
 			if (e.getActionCommand() == "Modify print") {
 				ModPrint.show();
