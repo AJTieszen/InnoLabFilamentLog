@@ -274,8 +274,18 @@ public class Main {
 		}
 	}
 	public static void restart() {
+		int state = mainWindow.getExtendedState();
+		Dimension size = mainWindow.getSize();
+		Point location = mainWindow.getLocation();
+		
 		mainWindow.dispose();
 		main(null);
+		
+		mainWindow.setExtendedState(state);
+		if (state != JFrame.MAXIMIZED_BOTH) {
+			mainWindow.setSize(size);
+			mainWindow.setLocation(location);
+		}
 	}
 	
  	static class ButtonListener implements ActionListener {
