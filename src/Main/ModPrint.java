@@ -148,7 +148,7 @@ public class ModPrint {
 	}
 	
 	private static void search() {
-		String ticket = ticketBox.getText().trim();
+		String ticket = Database.sanitize(ticketBox.getText().trim());
 
 //		Clean up search input
 		if (ticket.length() == 0) {
@@ -202,11 +202,11 @@ public class ModPrint {
 	private static void submit() {
 //		Read input values
 		if (!ticketFound) return;
-		String ticket = ticketBox2.getText().trim();
-		String date = dateBox.getText().trim();
-		String netid = netIDBox.getText().trim();
-		String project = projectBox.getText().trim();
-		String material = materialBox.getSelectedItem().toString().trim();
+		String ticket = Database.sanitize(ticketBox2.getText().trim());
+		String date = Database.sanitize(dateBox.getText().trim());
+		String netid = Database.sanitize(netIDBox.getText().trim());
+		String project = Database.sanitize(projectBox.getText().trim());
+		String material = Database.sanitize(materialBox.getSelectedItem().toString().trim());
 		String a = amountBox.getText().trim();
 		
 //		Clean up inputs

@@ -11,7 +11,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.text.NumberFormatter;
 
-public class ModUser {
+public class OverrideUser {
 	private static JFrame logWindow;
 
 	private static JTextField idBox;
@@ -136,7 +136,7 @@ public class ModUser {
 	}
 	
 	private static void search() {
-		String netid = idBox.getText().trim();
+		String netid = Database.sanitize(idBox.getText().trim());
 		
 //		Clean up search input
 		if (netid.length() == 0) {
@@ -176,11 +176,11 @@ public class ModUser {
 	private static void submit() {
 //		Read input values
 		if (!userFound) return;
-		String netid = idBox2.getText().trim();
-		String name = nameBox.getText().trim();
-		String u = usedBox.getText().trim();
-		String b = broughtBox.getText().trim();
-		String r = remainingBox.getText().trim();
+		String netid = Database.sanitize(idBox2.getText().trim());
+		String name = Database.sanitize(nameBox.getText().trim());
+		String u = Database.sanitize(usedBox.getText().trim());
+		String b = Database.sanitize(broughtBox.getText().trim());
+		String r = Database.sanitize(remainingBox.getText().trim());
 		
 //		Clean up inputs
 		if (netid.length() == 0 || name.length() == 0 || u.length() == 0 || b.length() == 0 || r.length() == 0) {
@@ -205,10 +205,10 @@ public class ModUser {
 	static class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand() == "🔎 Search") {
-				ModUser.search();
+				OverrideUser.search();
 			}
 			if (e.getActionCommand() == "Submit") {
-				ModUser.submit();
+				OverrideUser.submit();
 			}
 		}
 	}

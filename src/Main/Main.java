@@ -58,7 +58,7 @@ public class Main {
 //		System.out.println("Give Up Control");
 		statMessage = new JLabel("Starting up");
 		printerIcon = new ImageIcon("Ender3Logo.png");
-		mainWindow = new JFrame("Innovation Lab Print Log");
+		mainWindow = new JFrame("Innovation Lab Print Log");	
 		
 //		Load Program Settings
 		if (initFile.exists() && !initFile.isDirectory()) {
@@ -297,7 +297,7 @@ public class Main {
 				BroughtFilament.show();
 			}
 			if (e.getActionCommand() == "Override user info") {
-				ModUser.show();
+				OverrideUser.show();
 			}
 			if (e.getActionCommand() == "Modify print") {
 				ModPrint.show();

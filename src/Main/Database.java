@@ -2,6 +2,8 @@ package Main;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
@@ -486,6 +488,19 @@ public class Database {
 			s = s.substring(0, l);
 		}
 		return s;
+	}
+	public static String sanitize(String s) {
+		ArrayList<Character> reserved = new ArrayList<Character>();
+		reserved.addAll(Arrays.asList('\'', '\\', ';', '"'));
+		String sanitized = "";
+		
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if(!reserved.contains(c))
+				sanitized += c;
+		}
+		
+		return sanitized;
 	}
 }
 

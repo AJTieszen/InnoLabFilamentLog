@@ -115,7 +115,7 @@ public class Search {
 		
 //		Read search term and target column
 		String field = fieldBox.getSelectedItem().toString().replace(":", "").trim();
-		String term = searchBox.getText().trim();
+		String term = Database.sanitize(searchBox.getText().trim());
 		
 //		Clear tables
 		tablePanel.removeAll();
