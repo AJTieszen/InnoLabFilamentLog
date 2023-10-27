@@ -31,6 +31,8 @@ import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
 public class Main {
+	public static final String version = "Beta 8";
+	
 	public static final int FRAME_WIDTH = 1366;
 	public static final int FRAME_HEIGHT = 768;
 	public static final int MIN_FRAME_WIDTH = 853;
@@ -58,7 +60,7 @@ public class Main {
 //		System.out.println("Give Up Control");
 		statMessage = new JLabel("Starting up");
 		printerIcon = new ImageIcon("Ender3Logo.png");
-		mainWindow = new JFrame("Innovation Lab Print Log");	
+		mainWindow = new JFrame("Innovation Lab Print Log - " + version);	
 		
 //		Load Program Settings
 		if (initFile.exists() && !initFile.isDirectory()) {
