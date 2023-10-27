@@ -31,10 +31,12 @@ import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
 public class Main {
+	public static final String version = "Beta 8";
+	
 	public static final int FRAME_WIDTH = 1366;
 	public static final int FRAME_HEIGHT = 768;
-	public static final int MIN_FRAME_WIDTH = 853;
-	public static final int MIN_FRAME_HEIGHT = 640;
+	public static final int MIN_FRAME_WIDTH = 1000;
+	public static final int MIN_FRAME_HEIGHT = 740;
 	public static final int L_PANEL_WIDTH = 250;
 	
 	public static Color bg;
@@ -58,7 +60,7 @@ public class Main {
 //		System.out.println("Give Up Control");
 		statMessage = new JLabel("Starting up");
 		printerIcon = new ImageIcon("Ender3Logo.png");
-		mainWindow = new JFrame("Innovation Lab Print Log");	
+		mainWindow = new JFrame("Innovation Lab Print Log - " + version);	
 		
 //		Load Program Settings
 		if (initFile.exists() && !initFile.isDirectory()) {
@@ -137,7 +139,7 @@ public class Main {
 		leftPanel.add(centerImage);
 
 //		Create Button Panel
-		String[] labels = {"🔎 Search", "Log new print", "Modify print", "Log filament brought", "Prepare workshop", "Show / hide NetID", "Override user info", "Refresh database", "New database", "⚙ Local settings", "⟳ Check for updates"};
+		String[] labels = {"🔎 Search", "Log new print", "Modify print", "Log filament brought", "Prepare workshop", "Show / hide NetID", "Override user info", "Refresh database", "New database", "⚙ Local settings", "⟳ Check for updates", "report a bug"};
 		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1, 20, 10));
 		buttonPanel.setBackground(bg);
 		for(String label : labels) {
@@ -260,11 +262,11 @@ public class Main {
 			
 		}
 	}
-	private static void checkUpdates() {
+	private static void openWebpage(String page) {
 		if (Desktop.isDesktopSupported()) {
 			Desktop desktop = Desktop.getDesktop();
 			try {
-	            URI uri = new URI("https://github.com/AJTieszen/InnoLabFilamentLog/releases");
+	            URI uri = new URI(page);
 	            desktop.browse(uri);				
 			} catch(Exception e) {
 				ErrorLog.write(e);
@@ -321,7 +323,10 @@ public class Main {
 				Settings.show();
 			}
 			if (e.getActionCommand() == "⟳ Check for updates") {
-				Main.checkUpdates();
+				Main.openWebpage("https://github.com/AJTieszen/InnoLabFilamentLog/releases");
+			}
+			if (e.getActionCommand() == "report a bug") {
+				Main.openWebpage("https://github.com/AJTieszen/InnoLabFilamentLog/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=");
 			}
 		}
 	}
