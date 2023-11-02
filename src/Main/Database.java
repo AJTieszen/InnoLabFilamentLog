@@ -45,7 +45,6 @@ public class Database {
 	    	}
 	    	catch (UcanaccessSQLException e) {
 	    		if (e.getMessage().indexOf("bject name already exists:") > 0) {
-	    			System.out.println("INFO: Table already exists.");
 	    		}
 	    		else {
 	    			ErrorLog.write(e);
@@ -443,7 +442,6 @@ public class Database {
 	    	
 //	    	check if user is already in database
 	    	String sql = "select * from " + table + " where " + column + " like '%" + target + "%'";
-	    	System.out.println(sql);
 	    	result = stmt.executeQuery(sql);
 		} catch(Exception e) {
 			ErrorLog.write(e);

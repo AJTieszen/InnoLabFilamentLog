@@ -31,7 +31,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
 public class Main {
-	public static final String version = "Beta 8";
+	public static final String version = "Release Candidate 1";
 	
 	public static final int FRAME_WIDTH = 1366;
 	public static final int FRAME_HEIGHT = 768;
@@ -57,7 +57,6 @@ public class Main {
 	public static final File initFile = new File("3D Print Log.ini");	
 	
 	public static void main(String[] args) {
-//		System.out.println("Give Up Control");
 		statMessage = new JLabel("Starting up");
 		printerIcon = new ImageIcon("Ender3Logo.png");
 		mainWindow = new JFrame("Innovation Lab Print Log - " + version);	
