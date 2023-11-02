@@ -262,7 +262,7 @@ public class Main {
 			
 		}
 	}
-	private static void openWebpage(String page) {
+	public static void openWebpage(String page) {
 		if (Desktop.isDesktopSupported()) {
 			Desktop desktop = Desktop.getDesktop();
 			try {
