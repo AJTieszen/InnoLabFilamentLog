@@ -212,7 +212,6 @@ public class Settings {
 		String cbp = coursePerStud.getText().trim();
 		String wv = budgetWarning.getText().trim();
 		String clr = colorScheme.getSelectedItem().toString().trim();
-		System.out.println(clr);
 		int sbudget = Integer.parseInt(sb);
 		int cbudget = Integer.parseInt(cb);
 		int cpbudget = Integer.parseInt(cbp);
@@ -373,7 +372,6 @@ public class Settings {
 		String newFilename = JOptionPane.showInputDialog("Enter new filename: ");
 		if(newFilename.length() < 6 || !newFilename.substring(newFilename.length() - 6).equalsIgnoreCase(".accdb"))
 			newFilename += ".accdb";
-		System.out.println(newFilename);
 		setDbFile(newFilename);
 		
 		Database.setup();
