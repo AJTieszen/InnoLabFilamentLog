@@ -31,7 +31,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
 public class Main {
-	public static final String version = "Beta 8";
+	public static final String version = "Release Candidate 1";
 	
 	public static final int FRAME_WIDTH = 1366;
 	public static final int FRAME_HEIGHT = 768;
