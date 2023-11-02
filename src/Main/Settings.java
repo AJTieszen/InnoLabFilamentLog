@@ -143,6 +143,34 @@ public class Settings {
 		if(!colors.isEmpty()) {
 			colorScheme.setSelectedItem(colors);
 		}
+		
+		JPanel title4 = new JPanel(new FlowLayout());
+		title4.setBackground(bg);
+		JLabel versionInfo = new JLabel("Version info:");
+		versionInfo.setBackground(bg);
+		versionInfo.setForeground(fg);
+		title4.add(versionInfo);
+		JPanel settingsGrid4 = new JPanel(new GridLayout(0, 2, 20, 2));
+		settingsGrid4.setBackground(bg);
+		JLabel version = new JLabel("Current version: " + Main.version);
+		version.setBackground(bg);
+		version.setForeground(fg);
+		settingsGrid4.add(version);
+		JButton b = new JButton("⟳ Check for updates");
+		b.addActionListener(new ButtonListener());
+		b.setBackground(accent);
+		b.setForeground(fg);
+		settingsGrid4.add(b);
+		b = new JButton("report a bug");
+		b.addActionListener(new ButtonListener());
+		b.setBackground(accent);
+		b.setForeground(fg);
+		settingsGrid4.add(b);
+		b = new JButton("request a feature");
+		b.addActionListener(new ButtonListener());
+		b.setBackground(accent);
+		b.setForeground(fg);
+		settingsGrid4.add(b);
 
 		settingsArea.add(title1);
 		settingsArea.add(settingsGrid1);
@@ -151,6 +179,8 @@ public class Settings {
 		settingsArea.add(title3);
 		settingsArea.add(settingsGrid3);
 		settingsArea.setBorder(bottomBorder);
+		settingsArea.add(title4);
+		settingsArea.add(settingsGrid4);
 		
 		settingsEditor.add(settingsArea, BorderLayout.CENTER);
 		
@@ -380,6 +410,15 @@ public class Settings {
 			}
 			if (e.getActionCommand() == "Browse") {
 				Settings.browseFile();
+			}
+			if (e.getActionCommand() == "⟳ Check for updates") {
+				Main.openWebpage("https://github.com/AJTieszen/InnoLabFilamentLog/releases");
+			}
+			if (e.getActionCommand() == "report a bug") {
+				Main.openWebpage("https://github.com/AJTieszen/InnoLabFilamentLog/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=");
+			}
+			if (e.getActionCommand() == "request a feature") {
+				Main.openWebpage("https://github.com/AJTieszen/InnoLabFilamentLog/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md&title=");
 			}
 		}
 	}
