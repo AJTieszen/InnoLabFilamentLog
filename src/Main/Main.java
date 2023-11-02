@@ -36,7 +36,7 @@ public class Main {
 	public static final int FRAME_WIDTH = 1366;
 	public static final int FRAME_HEIGHT = 768;
 	public static final int MIN_FRAME_WIDTH = 1000;
-	public static final int MIN_FRAME_HEIGHT = 740;
+	public static final int MIN_FRAME_HEIGHT = 720;
 	public static final int L_PANEL_WIDTH = 250;
 	
 	public static Color bg;
@@ -139,7 +139,7 @@ public class Main {
 		leftPanel.add(centerImage);
 
 //		Create Button Panel
-		String[] labels = {"🔎 Search", "Log new print", "Modify print", "Log filament brought", "Prepare workshop", "Show / hide NetID", "Override user info", "Refresh database", "New database", "⚙ Local settings", "⟳ Check for updates", "report a bug"};
+		String[] labels = {"🔎 Search", "Log new print", "Modify print", "Log filament brought", "Prepare workshop", "Show / hide NetID", "Override user info", "Refresh database", "New database", "⚙ Local settings"};
 		JPanel buttonPanel = new JPanel(new GridLayout(labels.length, 1, 20, 10));
 		buttonPanel.setBackground(bg);
 		for(String label : labels) {
@@ -321,12 +321,6 @@ public class Main {
 			}
 			if (e.getActionCommand() == "⚙ Local settings") {
 				Settings.show();
-			}
-			if (e.getActionCommand() == "⟳ Check for updates") {
-				Main.openWebpage("https://github.com/AJTieszen/InnoLabFilamentLog/releases");
-			}
-			if (e.getActionCommand() == "report a bug") {
-				Main.openWebpage("https://github.com/AJTieszen/InnoLabFilamentLog/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=");
 			}
 		}
 	}
