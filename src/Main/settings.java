@@ -17,6 +17,12 @@ public class settings {
 
 	public static void show() {
 		// Initialize window
+		window = new JFrame("Settings");
+		window.setSize(800, 600);
+		window.setIconImage(main.printerIcon.getImage());
 		
+		// Display window
+		//window.pack();
+		window.setVisible(true);
 	}
 }
