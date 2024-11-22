@@ -1,20 +1,29 @@
 package Main;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
 import javax.swing.*;
 
 public class settings {
-	// Settings values
-	private static String db_directory = "%Documents%/FilamentLogs";
+	// String setting values
+	private static String db_directory = "%documents%/FilamentLogs";
 	private static String db_file = "FilamentLog 20xx.accdb";
 	
+	// Numeric setting values
 	private static Integer student_budget = 500;
 	private static Integer course_budget = 3000;
 	private static Integer course_per_stud = 200;
 	private static Integer warning_value = 50;
 	
-	// Window elements
+	// Window
 	private static JFrame window;
+	
+	// Text boxes
+	private static JTextField directoryField;
+	private static JTextField fileField;
 
 	public static void show() {
 		// Initialize window
@@ -45,7 +54,8 @@ public class settings {
 		c.weightx = 0.66;
 		c.gridx = 1;
 		c.gridwidth = 2;
-		grid1.add(new JTextField(db_directory), c);
+		directoryField = new JTextField(utils.parsePath(db_directory));
+		grid1.add(directoryField, c);
 		
 			// file label
 		c.weightx = 0.33;
@@ -57,14 +67,43 @@ public class settings {
 			// file field
 		c.weightx = 0.33;
 		c.gridx = 1;
-		grid1.add(new JTextField(db_file), c);
+		fileField = new JTextField(db_file);
+		grid1.add(fileField, c);
 		
 			// browse button
 		c.gridx = 2;
-		grid1.add(new JButton("Browse"), c);
+		JButton browse = new JButton("Browse");
+		browse.addActionListener(new ButtonListener());
+		browse.setActionCommand("browse");
+		grid1.add(browse, c);
 		
 		// Display window
 		window.pack();
 		window.setVisible(true);
+	}
+	
+	public static void browseFile () {
+		System.out.println("Browse");
+		String path = utils.parsePath(directoryField.getText());
+		
+		JFileChooser fileDialog = new JFileChooser();
+		File f = new File(path);
+		if (f.exists() && f.isDirectory()) {
+			fileDialog.setCurrentDirectory (f);
+		}
+		
+		int dlg = fileDialog.showDialog(window, "select");
+		
+		if (dlg == JFileChooser.APPROVE_OPTION) {
+			f = fileDialog.getSelectedFile();
+			path = f.getDirectory();
+			directoryField.setText(path);
+		}
+	}
+	
+	static class ButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if (e.getActionCommand().equalsIgnoreCase("browse")) settings.browseFile();
+		}
 	}
 }
